@@ -22,7 +22,7 @@ var pointSchema = mongoose.Schema({
 })
 var gameSchema = mongoose.Schema({
   host_id: {type: String, required: true},
-  player_ids: [{type: String, require: true}],
+  player_ids: [{type: String}],
   instructions: [instructionSchema],
   photos: [photoSchema],
   points: [pointSchema],
