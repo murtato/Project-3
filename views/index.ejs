@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><$= title $></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+     <$- include('./partials/head') $>
   </head>
   <body>
-    <h1><$= title $></h1>
-    <p>Welcome to <$= title $></p>
+    <h1>Project 3 - Scavenger Hunt</h1>
 
     <p><a href="/auth/google">login with google</a></p>
     <p><a href="/logout">logout</a></p>
@@ -14,18 +12,17 @@
     <$ if (user) { $>
       <p>Welcome, <$= user.firstName $></p>
       <img src="<$= user.imageUrl $>" alt="">
-    <$ }$>
+
     <form id="create-game" action="/api/games" method="post">
       <button type="submit">Create Game</button>
     </form>
-    <div>
-      join a game
-    </div>
-    <form action="/api/games/join" method="post">
-      <label for="search">Place Game Id</label>
-      <input id="join-game" type="text" name="gameId" placeholder="game id">
-      <input type="submit" value="join">
-    </form>
+
+      <form action="/api/games/join" method="post">
+        <label for="search">Join A Game</label>
+        <input id="join-game" type="text" name="gameId" placeholder="">
+        <input type="submit" value="join">
+      </form>
+    <$ }$>
 
   </body>
 </html>

@@ -1,13 +1,75 @@
 var Game = require("../models/game")
+var User = require("../models/user")
 
 module.exports = {
-  index:            index,
-  show:             show,
   create:           create,
   join:             join,
+  index:            index,
+  show:             show,
   startGame:        startGame,
   addInstruction:   addInstruction,
   destroy:          destroy
+}
+
+function create (req, res, next) {
+  console.log("create controller")
+
+  // if not logged in, log in
+  // if (!req.user) {
+  //   console.log("you have to be logged in")
+  //   res.redirect('/auth/google')
+  // } else {
+
+  // }
+    // if user isn't part of another game,
+      // set current user to host
+    // else go to that game
+
+
+  // else log in
+
+
+  var newGame = new Game();
+  console.log(req.user)
+
+  //the curr. user will be host of this game
+  newGame.host_id = req.user._id
+
+  newGame.save(function(err, savedGame){
+    if(err) res.json(err);
+    res.render('game/host', savedGame);
+  });
+}
+
+function join(req, res, next) {
+  console.log("join function is working")
+  if(!req.user){
+    console.log("you have to be logged in")
+    res.redirect('/auth/google')
+  } else {
+    var userId = req.user._id
+    var id = req.body.gameId
+
+    Game.findById(id, function(err, game){
+      // 1. check if there's an error
+      if(err || !game) {
+        res.json(err);
+      // 2. check if current user is already part of game
+      } else if(game.player_ids.indexOf(userId) != -1) {
+        res.render('game/player', {game:game, msg: "you're already part of this game"})
+      // 3. check if current user is the host
+      } else if(game.host_id == userId) {
+        res.render('game/host', {game: game, msg: "you're the host of this game"})
+      // 4. else add current user to game
+      } else {
+        game.player_ids.push(userId)
+        game.save(function (err, updatedGame) {
+          if(err) res.json(err);
+          res.render('game/player', updatedGame)
+        })
+      }
+    });
+  }
 }
 
 function index(req, res, next){
@@ -27,36 +89,9 @@ function show (req, res, next) {
   });
 }
 
-function create (req, res, next) {
-  console.log("create controller")
-  var newGame = new Game();
-  //the curr. user will be host of this game
-  newGame.host_id = req.user._id
 
-  newGame.save(function(err, savedGame){
-    if(err) res.json(err);
-    res.json(savedGame);
-  });
-}
 
-function join(req, res, next) {
-  console.log("join function is working")
-  console.log(req.body.gameId)
-  var id = req.body.gameId
-  Game.findById(id, function(err, game){
-    console.log(game)
-    if(err || !game) {
-      res.json(err);
-    } else {
-      game.player_ids = []
-      game.player_ids.push(req.user._id)
-      game.save(function (err, updatedGame) {
-        if(err) res.json(err);
-        res.json(updatedGame)
-      })
-    }
-  });
-}
+
 
 
 function addInstruction(req, res, next){
