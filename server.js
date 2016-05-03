@@ -8,6 +8,7 @@ var session = require('express-session');
 var passport = require('passport');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var games = require('./routes/games');
 
 require('dotenv').load();
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/api/games', games);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -70,5 +72,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
+
+var mongoose = require("mongoose")
+mongoose.connect("mongodb://localhost/project_3")
 
 module.exports = app;
