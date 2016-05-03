@@ -29,6 +29,7 @@ function show (req, res, next) {
 function create (req, res, next) {
   console.log("create controller")
   var newGame = new Game(req.body);
+  console.log(req.body)
   //the curr. user will be host of this game
   newGame.save(function(err, savedGame){
     if(err) next(err);
