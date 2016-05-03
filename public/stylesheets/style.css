@@ -1,8 +1,25 @@
+div.nav-wrapper {
+  align-content: top;
+  width: 100%;
+}
+a.brand-logo.left {
+  padding-left: 15px;
+}
 body {
-  padding: 50px;
+/*  padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
+@media (min-width: 600px){
+}
 a {
   color: #00B7FF;
+}
+h1{
+  padding-left: 15px;
+}
+p{
+  padding-left: 15px;
+}
+img {
+  padding-left: 15px;
 }

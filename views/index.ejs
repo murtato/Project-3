@@ -3,8 +3,30 @@
   <head>
     <title><$= title $></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
   </head>
   <body>
+
+  <div class="navbar-fixed">
+    <nav class="indigo">
+      <div class="nav-wrapper">
+        <a href="" class="brand-logo left">Snapclock</a>
+        <ul class="right">
+        <$ if (user) { $>
+          <li><a href="/logout">Logout</a></li>
+          <$ } else { $>
+          <li><a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a></li>
+          <$ } $>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
     <h1><$= title $></h1>
     <p>Welcome to <$= title $></p>
     <p>Welcome, <$= user.firstName $></p>
