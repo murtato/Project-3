@@ -1,11 +1,11 @@
 var Game = require("../models/game")
 
-
 module.exports = {
   index:            index,
   show:             show,
   create:           create,
   join:             join,
+  startGame:        startGame,
   addInstruction:   addInstruction,
   destroy:          destroy
 }
@@ -77,6 +77,26 @@ function addInstruction(req, res, next){
         res.json(updatedGame)
       })
     }
+  })
+}
+
+function startGame (req, res, next) {
+  console.log ("Game is starting")
+  var id = req.params.id
+  Game.findById(id, function(err, game){
+    if(err || !game){
+      next(err)
+    } else {
+      var start_time = new Date();
+      start_time.setSeconds(start_time.getSeconds() + 30);
+      game.start_time = start_time
+      game.save(function(err, updatedGame){
+        if(err) next(err)
+        console.log('updated Game start time')
+        res.json({msg: "startGame function worked", game: game})
+      })
+    }
+
   })
 }
 
