@@ -1,19 +1,22 @@
 var User = require('../models/user');
 
 module.exports = {
-  create: create
-};
-
-function create(req, res, next) {
-  var fact = req.body.fact;
-  var student = req.user;
-  student.facts.push({text:fact})
-  student.save(function(err) {
-    res.json(student);
-  console.log("User created")
-  })
+  index:    index,
+  create:   create
 }
 
-function del(req, res) {
+function index(req, res) {
+  console.log('user index function worked')
+  User.find({}, function (err, users) {
+    if(err) res.json(err);
+    res.json(users)
+  });
+}
 
+function create (req, res, next) {
+  var newUser = new User(req.body)
+  newUser.save(function (err, savedUser) {
+    if (err) next (err);
+    res.json(savedUser);
+  })
 }

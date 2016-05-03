@@ -9,8 +9,11 @@ var passport = require('passport');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+require('dotenv').load();
+
 var app = express();
-//require('./config/database');
+require('./config/database');
+
 require('./config/passport');
 
 // view engine setup
@@ -68,6 +71,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-var mongoose = require("mongoose")
-mongoose.connect("mongodb://localhost/project_3")
 module.exports = app;
