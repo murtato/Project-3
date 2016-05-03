@@ -46,5 +46,25 @@
       <a href="/auth/google">Login with Google</a>
       <$ } $>
 
+    <p><a href="/auth/google">login with google</a></p>
+    <p><a href="/logout">logout</a></p>
+
+    <$ if (user) { $>
+      <p>Welcome, <$= user.firstName $></p>
+      <img src="<$= user.imageUrl $>" alt="">
+    <$ }$>
+    <form id="create-game" action="/api/games" method="post">
+      <button type="submit">Create Game</button>
+    </form>
+    <div>
+      join a game
+    </div>
+    <form action="/api/games/join" method="post">
+      <label for="search">Place Game Id</label>
+      <input id="join-game" type="text" name="gameId" placeholder="game id">
+      <input type="submit" value="join">
+    </form>
+>>>>>>> master
+
   </body>
 </html>

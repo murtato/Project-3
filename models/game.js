@@ -1,4 +1,7 @@
-var mongoose = require("mongoose")
+var mongoose = require("mongoose");
+var shortid = require('shortid');
+
+shortid.characters('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@');
 
 var instructionSchema = mongoose.Schema({
   task: String,
@@ -21,6 +24,7 @@ var pointSchema = mongoose.Schema({
   points: Number
 })
 var gameSchema = mongoose.Schema({
+  _id: { type: String, default: shortid.generate},
   host_id: {type: String, required: true},
   player_ids: [{type: String}],
   instructions: [instructionSchema],
