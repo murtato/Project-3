@@ -2,7 +2,8 @@ var User = require('../models/user');
 
 module.exports = {
   index:    index,
-  create:   create
+  create:   create,
+
 }
 
 function index(req, res) {
