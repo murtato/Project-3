@@ -18,9 +18,9 @@
         <a href="" class="brand-logo left">Snapclock</a>
         <ul class="right">
         <$ if (user) { $>
-          <li><a href="/logout">Logout</a></li>
+          <a href="/logout">Logout</a>
           <$ } else { $>
-          <li><a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a></li>
+          <a href="/auth/google">Login with Google</a>
           <$ } $>
         </ul>
       </div>
@@ -33,7 +33,7 @@
     <p>Welcome, <$= user.firstName $></p>
     <img src="<$= user.imageUrl $>" alt="">
       <$ } else { $>
-      <li><a href="/auth/google"><i class="material-icons left">vpn_key</i>Login with Google</a></li>
+      <a href="/auth/google">Login with Google</a>
       <$ } $>
 
   </body>

@@ -5,6 +5,9 @@ div.nav-wrapper {
 a.brand-logo.left {
   padding-left: 15px;
 }
+a {
+  padding-left: 15px;
+}
 body {
 /*  padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
