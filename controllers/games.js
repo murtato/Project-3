@@ -23,6 +23,7 @@ function create (req, res, next) {
     // check if user already is part of a game
     var currentGame = req.user.currentGame
     if (currentGame) {
+      console.log("redirecting to game", currentGame)
       res.redirect('/api/games/'+currentGame)
       // go ahead and create a game
     } else {
@@ -36,7 +37,8 @@ function create (req, res, next) {
           user.currentGame = savedGame._id
           user.save(function (err, savedUser) {
             if (err) res.json(err)
-            res.redirect('/api/games/'+currentGame)
+
+            res.redirect('/api/games/'+savedUser.currentGame)
           })
         });
       })
@@ -50,28 +52,30 @@ function join(req, res, next) {
     console.log("you have to be logged in")
     res.redirect('/auth/google')
   } else {
-    var userId = req.user._id
-    var id = req.body.gameId
+    if (req.user.currentGame) {
+      res.redirect('/api/games/'+req.user.currentGame)
+      console.log("you're already a player of this game, here's the game again")
+    } else  {
+      var userId = req.user._id
+      var gameId = req.body.gameId
 
-    Game.findById(id, function(err, game){
-      // 1. check if there's an error
-      if(err || !game) {
-        res.json(err);
-      // 2. check if current user is already part of game
-      } else if(game.player_ids.indexOf(userId) != -1) {
-        res.render('game/player', {game:game, msg: "you're already part of this game"})
-      // 3. check if current user is the host
-      } else if(game.host_id == userId) {
-        res.render('game/host', {game: game, msg: "you're the host of this game"})
-      // 4. else add current user to game
-      } else {
-        game.player_ids.push(userId)
-        game.save(function (err, updatedGame) {
-          if(err) res.json(err);
-          res.render('game/player', updatedGame)
-        })
-      }
-    });
+      Game.findById(gameId, function(err, game){
+        if(err || !game) {
+          res.json(err);
+        } else {
+          // add current user to game and game to user
+          game.player_ids.push(userId)
+          game.save(function (err, updatedGame) {
+            if(err) res.json(err);
+            User.findById(userId, function(err, user) {
+              console.log("added you to the game, here's the game")
+              user.currentGame = updatedGame._id
+              res.redirect('/api/games/'+updatedGame._id)
+            })
+          })
+        }
+      })
+    }
   }
 }
 
@@ -90,8 +94,10 @@ function show (req, res, next) {
   } else {
     console.log("show controller worked")
     var id = req.params.id
+
     Game.findById(id, function(err, game){
       if(err) res.json(err);
+
       if (game.host_id == req.user.id){
         res.render('game/host', {game: game})
       } else {
