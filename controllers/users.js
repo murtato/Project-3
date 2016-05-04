@@ -28,7 +28,7 @@ function leaveGame(req, res) {
 
     user.save(function (err, savedUser) {
       if (err) next (err)
-      res.json(savedUser)
+      res.redirect("/")
     })
 
   })

@@ -9,7 +9,7 @@
     <p><a href="/auth/google">login with google</a></p>
     <p><a href="/logout">logout</a></p>
 
-    <$ if (user) { $>
+    <$ if (user && !user.currentGame) { $>
       <p>Welcome, <$= user.firstName $></p>
       <img src="<$= user.imageUrl $>" alt="">
 
@@ -22,7 +22,11 @@
         <input id="join-game" type="text" name="gameId" placeholder="">
         <input type="submit" value="join">
       </form>
-    <$ }$>
+    <$ } else if(user && user.currentGame) { $>
+      <a href="/api/games/<$= user.currentGame $>" title="">Continue Game</a>
+      <a href="/users/leavegame" title="">Leave Game</a>
+
+    <$ } $>
 
   </body>
 </html>
