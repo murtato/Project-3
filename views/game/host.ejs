@@ -3,41 +3,40 @@
 <head>
   <$- include('../partials/head') $>
 </head>
-<body>
+<body class="center-align">
   <$- include('../partials/navbar') $>
 
-  <ul class="collapsible center-align" data-collapsible="accordion">
-      <li>
-        <div class="collapsible-header"><i class="material-icons"></i>First Task</div>
-        <div class="collapsible-body"><p>Take a picture with a teacher.</p></div>
-      </li>
-      <li>
-        <div class="collapsible-header"><i class="material-icons"></i>Second Task</div>
-        <div class="collapsible-body"><p>Take a picture with a girl wearing red.</p></div>
-      </li>
-      <li>
-        <div class="collapsible-header"><i class="material-icons"></i>Third Task</div>
-        <div class="collapsible-body"><p>Take a picture with a homeless man.</p></div>
-      </li>
-  </ul>
+  <div class="secret-code-container">
+    <p>Your secret code is <span id="game-id"><$= game._id $></span></p>
+  </div>
 
-  <div class="container center-align">
+  <div class="instructions-container">
+    list of instructions will go here
+  </div>
+
+  <div class="players-container">
+    list of players will go here
+  </div>
 
 
-
-    <div class="row">
-      <div class="col s12">
-        <button class="btn-large waves-effect waves-light" id="startGame" onclick="startGame('<$= game.id $>')">Start Game</button>
+  <$ if (!game.start_time) { $>
+  <footer class="page-footer indigo">
+    <div class="start-button-container container center-align">
+      <div class="row">
+        <div class="col s12">
+          <button class="btn-large waves-effect waves-light" id="startGame" onclick="startGame('<$= game.id $>')">Start Game</button>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="footer-copyright">
+    </div>
+  </footer>
+  <$ } $>
 
 
   <$- include('../partials/script') $>
 </body>
 </html>
-
-
 
 
 

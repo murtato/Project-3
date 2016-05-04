@@ -9,9 +9,19 @@ a {
   padding-left: 15px;
 }
 body {
-/*  padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+footer {
+  position:fixed;
+  bottom:0px;
+  width:100%;
+}
+
+.navbar-fixed {
+  margin-bottom:20px;
+}
+
 @media (min-width: 600px){
 }
 a {

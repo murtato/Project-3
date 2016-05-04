@@ -7,7 +7,7 @@ var instructionSchema = mongoose.Schema({
   task: String,
   level: Number,
   start_time: Date,
-  expiration: Date,
+  exp_time: Date,
   player_ids: [{type: String }]
 })
 
