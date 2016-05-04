@@ -7,6 +7,7 @@ router.get('/', usersController.index);
 
 router.post('/', usersController.create);
 
+router.get('/leaveGame', usersController.leaveGame)
 
 
 module.exports = router;

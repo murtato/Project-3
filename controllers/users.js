@@ -1,8 +1,9 @@
 var User = require('../models/user');
 
 module.exports = {
-  index:    index,
-  create:   create
+  index:     index,
+  create:    create,
+  leaveGame: leaveGame
 }
 
 function index(req, res) {
@@ -18,5 +19,17 @@ function create (req, res, next) {
   newUser.save(function (err, savedUser) {
     if (err) next (err);
     res.json(savedUser);
+  })
+}
+
+function leaveGame(req, res) {
+  User.findById(req.user.id, function (err, user) {
+    user.currentGame = null
+
+    user.save(function (err, savedUser) {
+      if (err) next (err)
+      res.json(savedUser)
+    })
+
   })
 }

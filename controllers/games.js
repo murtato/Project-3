@@ -15,30 +15,41 @@ function create (req, res, next) {
   console.log("create controller")
 
   // if not logged in, log in
-  // if (!req.user) {
-  //   console.log("you have to be logged in")
-  //   res.redirect('/auth/google')
-  // } else {
+  if (!req.user) {
+    console.log("please log in")
+    res.redirect('/auth/google')
 
-  // }
-    // if user isn't part of another game,
-      // set current user to host
-    // else go to that game
+  // else try to create game
+  } else {
+    // check if user already is part of a game
+    var currentGame = req.user.currentGame
+    if (currentGame) {
 
+      Game.findById(currentGame, function (err, game) {
+        if (game.host_id == req.user.id){
+          res.render('game/host', {game: game, host: req.user})
+        } else {
+          res.render('game/player', {game: game})
+        }
+      })
+      // go ahead and create a game
+    } else {
 
-  // else log in
-
-
-  var newGame = new Game();
-  console.log(req.user)
-
-  //the curr. user will be host of this game
-  newGame.host_id = req.user._id
-
-  newGame.save(function(err, savedGame){
-    if(err) res.json(err);
-    res.render('game/host', savedGame);
-  });
+      User.findById(req.user.id, function(err, user) {
+        var newGame = new Game();
+        //the curr. user will be host of this game
+        newGame.host_id = user._id
+        newGame.save(function(err, savedGame){
+          if(err) res.json(err);
+          user.currentGame = savedGame._id
+          user.save(function (err, savedUser) {
+            if (err) res.json(err)
+            res.render('game/host', {game: savedGame, host: savedUser});
+          })
+        });
+      })
+    }
+  }
 }
 
 function join(req, res, next) {
@@ -88,10 +99,6 @@ function show (req, res, next) {
     res.json(game)
   });
 }
-
-
-
-
 
 
 function addInstruction(req, res, next){
