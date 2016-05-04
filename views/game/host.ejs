@@ -6,6 +6,20 @@
 <body class="center-align">
   <$- include('../partials/navbar') $>
 
+  <div class="row">
+    <div class="col s12">
+      <!-- <form id="new-instruction"> -->
+        <label for="">Add A Task</label>
+        <input id="add-input" type="text" class="input-instruction" name="instruction[task]" placeholder="">
+        <button  class="add-button" id="<$= game.id $>">Add</button>
+      <!-- </form> -->
+    </div>
+  </div>
+
+
+  <ul id="task-list" class="collapsible" data-collapsible="accordion">
+  </ul>
+
   <div class="secret-code-container">
     <p>Your secret code is <span id="game-id"><$= game._id $></span></p>
   </div>
@@ -22,7 +36,6 @@
   <div class="players-container">
     list of players will go here
   </div>
-
 
   <$ if (!game.start_time) { $>
   <footer class="page-footer indigo">
@@ -42,14 +55,3 @@
   <$- include('../partials/script') $>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
