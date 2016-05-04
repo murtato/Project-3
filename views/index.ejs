@@ -1,32 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-     <$- include('./partials/head') $>
-  </head>
-  <body>
-    <h1>Project 3 - Scavenger Hunt</h1>
+<head>
+   <$- include('./partials/head') $>
+</head>
+<body>
 
-    <p><a href="/auth/google">login with google</a></p>
-    <p><a href="/logout">logout</a></p>
 
+  <div class="navbar-fixed">
+    <nav class="indigo">
+      <div class="nav-wrapper">
+        <a href="" class="brand-logo left">Snapclock</a>
+        <ul class="right">
+        <$ if (user) { $>
+          <span>Welcome, <$= user.firstName $></span>
+          <a href="/logout">Logout</a>
+          <$ } else { $>
+          <a href="/auth/google">Login with Google</a>
+          <$ } $>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+
+
+
+  <div class="container">
     <$ if (user && !user.currentGame) { $>
-      <p>Welcome, <$= user.firstName $></p>
-      <img src="<$= user.imageUrl $>" alt="">
 
-      <form id="create-game" action="/api/games" method="post">
-        <button type="submit">Create Game</button>
-      </form>
+      <div class="row">
+        <form id="create-game" action="/api/games" method="post">
+          <button type="submit" class="waves-effect waves-light btn-large">Create Game</button>
+        </form>
+      </div>
 
-      <form action="/api/games/join" method="post">
-        <label for="search">Join A Game</label>
-        <input id="join-game" type="text" name="gameId" placeholder="">
-        <input type="submit" value="join">
-      </form>
+      <div class="row">
+        <form action="/api/games/join" method="post">
+          <label for="search">Join A Game</label>
+          <input id="join-game" type="text" name="gameId" placeholder="">
+          <input type="submit" value="join">
+        </form>
+      </div>
+
     <$ } else if(user && user.currentGame) { $>
-      <a href="/api/games/<$= user.currentGame $>" title="">Continue Game</a>
-      <a href="/users/leavegame" title="">Leave Game</a>
-
+      <div class="row">
+        <a href="/api/games/<$= user.currentGame $>" class="waves-effect waves-light btn-large">Continue Game</a>
+      </div>
+      <div class="row">
+        <a href="/users/leavegame" class="waves-effect waves-light btn-large">Leave Game</a>
+      </div>
     <$ } $>
+  </div>
 
-  </body>
+  <$- include('./partials/script') $>
+</body>
 </html>
