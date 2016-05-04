@@ -15,7 +15,17 @@
     </ul>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
   </nav>
-
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <!-- <form id="new-instruction"> -->
+            <label for="">Add A Task</label>
+            <input id="add-input" type="text" class="input-instruction" name="instruction[task]" placeholder="">
+            <button  class="add-button" id="<$= game.id $>">Add</button>
+          <!-- </form> -->
+        </div>
+      </div>
+    </div>
       <ul id="slide-out" class="side-nav">
         <li><a href="#!">First Sidebar Link</a></li>
         <li><a href="#!">Second Sidebar Link</a></li>
@@ -50,27 +60,10 @@
 
     <center>
 
-
-
-
   <div class="space">
 
-  <ul class="collapsible" data-collapsible="accordion">
-      <li>
-        <div class="collapsible-header"><i class="material-icons"></i>First Task</div>
-        <div class="collapsible-body"><p>Take a picture with a teacher.</p></div>
-      </li>
-      <li>
-        <div class="collapsible-header"><i class="material-icons"></i>Second Task</div>
-        <div class="collapsible-body"><p>Take a picture with a girl wearing red.</p></div>
-      </li>
-      <li>
-        <div class="collapsible-header"><i class="material-icons"></i>Third Task</div>
-        <div class="collapsible-body"><p>Take a picture with a homeless man.</p></div>
-      </li>
-    </ul>
-
-
+  <ul id="task-list" class="collapsible" data-collapsible="accordion">
+  </ul>
 
   <!--
           <div class="row">
@@ -78,7 +71,6 @@
             <div class="card">
               <div class="card-image">
                 <img src="">
-
 
       <div class="preloader-wrapper big active">
         <div class="spinner-layer spinner-blue">
@@ -140,7 +132,7 @@
 
     <div class="card">
       <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" src="https://s-media-cache-ak0.pinimg.com/736x/5e/1b/f1/5e1bf1b8503bacea9b48de8cd94ff97d.jpg">
+        <!-- <img class="activator" src="https://s-media-cache-ak0.pinimg.com/736x/5e/1b/f1/5e1bf1b8503bacea9b48de8cd94ff97d.jpg"> -->
       </div>
       <div class="card-content">
         <span class="card-title activator grey-text text-darken-4"><i class="material-icons right"></i></span>
@@ -156,16 +148,4 @@
   <$- include('../partials/script') $>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
 
