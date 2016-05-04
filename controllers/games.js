@@ -70,7 +70,10 @@ function join(req, res, next) {
             User.findById(userId, function(err, user) {
               console.log("added you to the game, here's the game")
               user.currentGame = updatedGame._id
-              res.redirect('/api/games/'+updatedGame._id)
+              user.save(function (err, updatedUser) {
+                if (err) res.json(err)
+                res.redirect('/api/games/'+updatedGame._id)
+              })
             })
           })
         }

@@ -1,24 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <$- include('../partials/head') $>
-  </head>
-  <body>
-  <h1>Game Page - Player</h1>
+<head>
+  <$- include('../partials/head') $>
+</head>
+<body>
+  <center>
 
-  <div>
+   <!-- <div>
     <p>Host id: <$= game.host_id $></p>
   </div>
 
   <div>
     <p>Players: <$= game.player_ids $></p>
   </div>
+ -->
 
 
-  <div>
+
+  <div class="right-corner">
     <a href="/users/leavegame" title="leave game">Leave Game</a>
+  </div>
+  <div class="card">
+    <div class="chip">
+      <img src="http://data.whicdn.com/images/27274868/large.jpg" alt="Contact Person">
+      PLAYER
+    </div>
+    <br>
+    Time: <span class="red-123">59min</span>
   </div>
 
 
-  </body>
+  <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header"><i class="material-icons"></i>First Task</div>
+        <div class="collapsible-body"><p>Take a picture with a teacher.</p></div>
+      </li>
+
+      <li>
+        <div class="collapsible-header"><i class="material-icons"></i>Second Task</div>
+        <div class="collapsible-body"><p>Take a picture with a girl wearing red.</p></div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="material-icons"></i>Third Task</div>
+        <div class="collapsible-body"><p>Take a picture with a homeless man.</p></div>
+      </li>
+    </ul>
+
+  <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <!-- <img class="activator" src="images/office.jpg"> -->
+    </div>
+
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Task 1<i class="material-icons right">more_vert</i></span>
+    </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Hidden task<i class="material-icons right">close</i></span>
+        <p><i  <i class="material-icons">surround_sound</i></p>
+      </div>
+  </div>
+
+  <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <!-- <img class="activator" src="images/office.jpg"> -->
+    </div>
+
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Task 2<i class="material-icons right">more_vert</i></span>
+    </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Hidden task<i class="material-icons right">close</i></span>
+        <p><i  <i class="material-icons">surround_sound</i></p>
+      </div>
+  </div>
+
+
+    </center>
+  <$- include('../partials/script') $>
+
+</body>
 </html>
+
+
+

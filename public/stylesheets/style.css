@@ -1,4 +1,4 @@
-div.nav-wrapper {
+/*div.nav-wrapper {
   align-content: top;
   width: 100%;
 }
@@ -9,12 +9,12 @@ a {
   padding-left: 15px;
 }
 body {
-/*  padding: 50px;*/
+ padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 @media (min-width: 600px){
 }
-a {
+/*a {
   color: #00B7FF;
 }
 h1{
@@ -25,4 +25,16 @@ p{
 }
 img {
   padding-left: 15px;
+}
+*/
+.name-time-box {
+    border: 2px solid black;
+    width: 30%;
+    text-align: center;
+}
+.red-123{
+  color: red;
+}
+.right-corner{
+  float: right;
 }
