@@ -99,9 +99,9 @@ function show (req, res, next) {
       if(err) res.json(err);
 
       if (game.host_id == req.user.id){
-        res.render('game/host', {game: game})
+        res.render('game/host', {game: game, user: req.user})
       } else {
-        res.render('game/player', {game: game})
+        res.render('game/player', {game: game, user: req.user})
       }
     });
   }
@@ -138,11 +138,20 @@ function startGame (req, res, next) {
     } else {
       var start_time = new Date();
       start_time.setSeconds(start_time.getSeconds() + 30);
+      var exp_time = new Date(start_time)
+      console.log(exp_time)
+      exp_time.setHours(exp_time.getHours()+1)
+      console.log(exp_time)
+
+
       game.start_time = start_time
+      game.exp_time = exp_time
+
       game.save(function(err, updatedGame){
         if(err) next(err)
         console.log('updated Game start time')
-        res.json({msg: "startGame function worked", game: game})
+
+        res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
       })
     }
 
@@ -154,7 +163,7 @@ function destroy(req, res, next){
   console.log("Deleting game", id)
   Game.remove({_id: id}, function(err, game){
     if(err) res.json(err)
-    res.json({message: "Game deleted", _id: id})
+    res.json({msg: "Game deleted", _id: id})
   })
 }
 

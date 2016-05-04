@@ -31,7 +31,7 @@ var gameSchema = mongoose.Schema({
   photos: [photoSchema],
   points: [pointSchema],
   start_time: Date,
-  expiration: Date
+  exp_time: Date
 })
 var Game = mongoose.model("Game", gameSchema)
 

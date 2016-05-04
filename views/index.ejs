@@ -5,24 +5,7 @@
 </head>
 <body>
 
-
-  <div class="navbar-fixed">
-    <nav class="indigo">
-      <div class="nav-wrapper">
-        <a href="" class="brand-logo left">Snapclock</a>
-        <ul class="right">
-        <$ if (user) { $>
-          <span>Welcome, <$= user.firstName $></span>
-          <a href="/logout">Logout</a>
-          <$ } else { $>
-          <a href="/auth/google">Login with Google</a>
-          <$ } $>
-        </ul>
-      </div>
-    </nav>
-  </div>
-
-
+  <$- include('./partials/navbar') $>
 
 
   <div class="container">
