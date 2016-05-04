@@ -18,20 +18,12 @@ function create (req, res, next) {
   if (!req.user) {
     console.log("please log in")
     res.redirect('/auth/google')
-
   // else try to create game
   } else {
     // check if user already is part of a game
     var currentGame = req.user.currentGame
     if (currentGame) {
-
-      Game.findById(currentGame, function (err, game) {
-        if (game.host_id == req.user.id){
-          res.render('game/host', {game: game, host: req.user})
-        } else {
-          res.render('game/player', {game: game})
-        }
-      })
+      res.redirect('/api/games/'+currentGame)
       // go ahead and create a game
     } else {
 
@@ -44,7 +36,7 @@ function create (req, res, next) {
           user.currentGame = savedGame._id
           user.save(function (err, savedUser) {
             if (err) res.json(err)
-            res.render('game/host', {game: savedGame, host: savedUser});
+            res.redirect('/api/games/'+currentGame)
           })
         });
       })
@@ -92,12 +84,21 @@ function index(req, res, next){
 }
 
 function show (req, res, next) {
-  console.log("show controller")
-  var id = req.params.id
-  Game.find({_id: id}, function(err, game){
-    if(err) res.json(err);
-    res.json(game)
-  });
+  if(!req.user){
+    console.log("you have to be logged in")
+    res.redirect('/auth/google')
+  } else {
+    console.log("show controller worked")
+    var id = req.params.id
+    Game.findById(id, function(err, game){
+      if(err) res.json(err);
+      if (game.host_id == req.user.id){
+        res.render('game/host', {game: game})
+      } else {
+        res.render('game/player', {game: game})
+      }
+    });
+  }
 }
 
 
