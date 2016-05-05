@@ -9,7 +9,7 @@ var expTime
 //
 // LODASH TEMPLATES
 //
-var _renderIstruction = _.template(`
+var _renderInstruction = _.template(`
   <div class='col s12'>
     <div class='card'>
       <div class='card-content'>

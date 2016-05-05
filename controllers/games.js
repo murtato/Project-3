@@ -187,7 +187,7 @@ function startGame (req, res, next) {
   var id = req.params.id
   Game.findById(id, function(err, game){
     if(err || !game){
-      next(err)
+      res.json(err)
     } else {
       var start_time = new Date();
       start_time.setSeconds(start_time.getSeconds() + 30);
@@ -204,10 +204,15 @@ function startGame (req, res, next) {
       console.log(game.instructions[0])
 
       game.save(function(err, updatedGame){
-        if(err) next(err)
+        if(err) res.json(err)
         console.log('updated Game start time')
 
-        res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
+        User.update(
+          {_id: {$in: updatedGame.player_ids}},
+          {$set: {currentTask: 0}}, function (err) {
+            res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
+        })
+
 
       })
     }
