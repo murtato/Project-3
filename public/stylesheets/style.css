@@ -11,6 +11,27 @@ footer {
 .right-corner{
   float:right;
 }
+
+input {
+  text-align: center;
+}
+
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;
+}
+
+:-ms-input-placeholder {
+   text-align: center;
+}
+
 .con-space {
     border: 2px solid black;
     display: inline-flex;

@@ -6,6 +6,7 @@ module.exports = {
   join:               join,
   index:              index,
   renderGame:         renderGame,
+  show:               show,
   startGame:          startGame,
   addInstruction:     addInstruction,
   deleteInstruction:  deleteInstruction,
@@ -108,7 +109,7 @@ function renderGame(req, res, next) {
     console.log("you have to be logged in")
     res.redirect('/auth/google')
   } else {
-    console.log("show controller worked")
+    console.log("renderGame controller worked")
     var id = req.params.id
 
     console.log(id)
@@ -124,9 +125,25 @@ function renderGame(req, res, next) {
           res.render('game/player', {game: game, user: req.user, players: players})
         }
       })
-
     });
   }
+}
+
+function show(req, res, next) {
+  console.log("show controller worked")
+  var id = req.params.id
+
+  Game.findById(id, function(err, game){
+    if(err) res.json(err)
+
+    User.find({_id: {$in: game.player_ids}}, function(err, players) {
+      if (game.host_id == req.user.id){
+        res.json({game: game, user: req.user, players: players})
+      } else {
+        res.json({game: game, user: req.user, players: players})
+      }
+    })
+  })
 }
 
 
@@ -191,6 +208,7 @@ function startGame (req, res, next) {
         console.log('updated Game start time')
 
         res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
+
       })
     }
   })

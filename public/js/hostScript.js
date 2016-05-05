@@ -1,12 +1,56 @@
-
-console.log("main.js loaded")
+console.log("hostScript.js loaded")
+var game
+var user
+var players
 var gameId
 var startTime
 var expTime
 
+//
+// LODASH TEMPLATES
+//
+var _renderIstruction = _.template(`
+  <div class='col s12'>
+    <div class='card'>
+      <div class='card-content'>
+        <span class='card-title'><%= instruction.task %></span>
+        <% if (!game.start_time) { %>
+          <button id="<%= instruction._id %>" onclick='deleteHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  `)
+
+function renderInstructions(instructions) {
+  instructions.forEach(instruction => {
+    var instructionHtml = _renderIstruction({instruction: instruction, game: game})
+    $("#task-list").append(instructionHtml)
+  })
+}
+
+//
+// /LODASH TEMPLATES
+//
+
+
+
+
+
 $(document).ready(function (){
   gameId = $("#game-id").html()
-  status()
+
+  $.ajax({
+    method: "GET",
+    url: "/api/games/"+ gameId + "/json/"
+  }).then(function (res) {
+    game = res.game
+    user = res.user
+    players = res.players
+
+    renderInstructions(game.instructions)
+
+  })
 
 })
 
@@ -46,23 +90,31 @@ $(".add-button").on("click", function (e) {
   var t = $("#add-input").val()
   var list = $("#task-list")
 
-  $.ajax({
-    method: "PUT",
-    url: "/api/games/"+ e.target.id,
-    data: {
-      task: t
-    }
-  }).then(function(res){
-    list.empty();
-    res.instructions.forEach(function(ins, index) {
-      list.append(
-        "<li><div class='collapsible-header'><i class='material-icons'></i>"+
-        "Task " + index +
-        "</div><div class='collapsible-body'><p>" + ins.task + "</p>"+
-        "<button id="+ins._id+" onclick='deleteHandler(this)' class='delete'>delete</button></div></li>"
-      )
+
+  if (t) {
+    $.ajax({
+      method: "PUT",
+      url: "/api/games/"+ e.target.id,
+      data: {
+        task: t
+      }
+    }).then(function(res){
+      list.empty();
+      res.instructions.forEach(function(ins, index) {
+        list.append(
+          "<div class='col s12'>" +
+            "<div class='card'>" +
+              "<div class='card-content'>" +
+                "<span class='card-title'>" + ins.task + "</span>" +
+                "<button id=" + ins._id + " onclick='deleteHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>" +
+              "</div>" +
+            "</div>" +
+          "</div>"
+        )
+      })
+      $("#add-input").val("")
     })
-  })
+  }
 })
 
 function deleteHandler(e) {
@@ -86,6 +138,11 @@ function startGame(id) {
     console.log("game has started.")
     startTime = new Date(data.start_time)
     expTime = new Date(data.exp_time)
+
+
+    //remove all delete buttons from tasks
+    $(".delete").remove()
+
     var conSpace = $("<div>").addClass("con-space")
                              .append($("<div>").attr('id', 'clockmin'))
                              .append(" : ")
@@ -94,18 +151,8 @@ function startGame(id) {
 
     $("#startGame").hide();
     $(".footer123").hide();
+
   })
 }
-function currentTask(id) {
-  $.ajax({
-    type: "PUT",
-    url: "/api/games/"+id+"/startgame"
-  }).then(function(data){
-    console.log("currentTask working")
-    var currenttask = $()
 
-
-$(".button-collapse").sideNav();
-$('.button-collapse').sideNav('show');
-$('.button-collapse').sideNav('hide');
 
