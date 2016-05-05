@@ -13,6 +13,7 @@ router.post(    '/join',              gamesController.join);
 router.put(     '/:id',               gamesController.addInstruction);
 router.put(     '/:id/startgame',     gamesController.startGame);
 router.put(     '/:gameId/:instrId',  gamesController.deleteInstruction);
+router.put(     '/:gameId/:instrId',  gamesController.addPhoto)
 router.delete(  '/:id',               gamesController.destroy);
 
 
