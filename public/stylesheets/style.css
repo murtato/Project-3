@@ -1,13 +1,4 @@
-div.nav-wrapper {
-  align-content: top;
-  width: 100%;
-}
-a.brand-logo.left {
-  padding-left: 15px;
-}
-a {
-  padding-left: 15px;
-}
+
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -18,21 +9,4 @@ footer {
   width:100%;
 }
 
-.navbar-fixed {
-  margin-bottom:20px;
-}
 
-@media (min-width: 600px){
-}
-a {
-  color: #00B7FF;
-}
-h1{
-  padding-left: 15px;
-}
-p{
-  padding-left: 15px;
-}
-img {
-  padding-left: 15px;
-}

@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Snapclock', user: req.user });
 });
 
+
 router.get('/auth/google', passport.authenticate(
   'google',
   { scope: ['profile', 'email'] }
