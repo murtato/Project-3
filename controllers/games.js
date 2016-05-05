@@ -105,6 +105,7 @@ function renderGame(req, res, next) {
         if (game.host_id == req.user.id){
           res.render('game/host', {game: game, user: req.user, players: players})
         } else {
+          console.log(req.user)
           res.render('game/player', {game: game, user: req.user, players: players})
         }
       })
@@ -137,6 +138,7 @@ function addInstruction(req, res, next){
     }
   })
 }
+
 
 function startGame (req, res, next) {
   console.log ("Game is starting")
