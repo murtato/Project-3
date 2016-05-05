@@ -22,14 +22,18 @@ $(".add-button").on("click", function (e) {
     list.empty();
     res.instructions.forEach(function(ins, index) {
       list.append(
-        "<li><div class='collapsible-header'><i class='material-icons'></i>"+
-        "Task " + index +
-        "</div><div class='collapsible-body'><p>" + ins.task + "</p>"+
-        "<button id="+ins._id+" onclick='deleteHandler(this)' class='delete'>delete</button></div></li>"
+
+
+        "<li class='collection-item'>" + index +
+        ". " + ins.task +
+        "<div id="+ins._id+" onclick='deleteHandler(this)' class='delete secondary-content'><i class='material-icons'>delete</i></div></li>"
       )
     })
   })
 })
+
+
+
 
 function deleteHandler(e) {
   var instrId = e.id
