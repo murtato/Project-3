@@ -1,25 +1,14 @@
 console.log("playerScript.js loaded")
-
-
-
-
-
-
+var game
+var user
+var players
+var gameId
+var startTime
+var expTime
 
 // LODASH TEMPLATES
 //
-var _renderInstruction = _.template(`
-  <div class='col s12'>
-    <div class='card'>
-      <div class='card-content'>
-        <span class='card-title'><%= instruction.task %></span>
-        <% if (!game.start_time) { %>
-          <button id="<%= instruction._id %>" onclick='deleteHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>
-        <% } %>
-      </div>
-    </div>
-  </div>
-  `)
+
 var renderCurrentTask = _.template(`
   <h5>Current Task</h5>
   <div class="row">
@@ -53,15 +42,15 @@ var renderUpcomingTask = _.template(`
     </div>
   `)
 
-function renderInstructions(tasks) {
-  tasks.forEach(instruction => {
-    var taskHtml = _renderIstruction({instruction: instruction, game: game})
-    $("#task-list").append(taskHtml)
-  })
-}
 $(document).ready(function() {
   $.get(window.location.pathname + "/json")
   .then(data => {
+    // update global variables
+    game = data.game
+    user = data.user
+    players = data.players
+
+    // begin rendering page
     console.log('ajax called')
     var instructions = data.game.instructions
     var currentTask = data.user.currentTask
@@ -77,3 +66,17 @@ $(document).ready(function() {
   })
 })
 
+function addPhoto(gameId) {
+  var photoUrl = $("#photo-url").val()
+  console.log(photoUrl)
+  $.ajax({
+    method: "PUT",
+    url: "/api/games/" + gameId + "/photo",
+    data: {
+      photoUrl: photoUrl,
+      currentTask: user.currentTask
+    }
+  }).then(function (res){
+    console.log(res)
+  })
+}

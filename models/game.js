@@ -13,8 +13,8 @@ var instructionSchema = mongoose.Schema({
 
 var photoSchema = mongoose.Schema({
   url: String,
-  instruction_id: String,
-  palyer_id: String,
+  instruction_index: String,
+  player_id: String,
   time_submitted: Date,
   time_reviewed: {type: Date, default: null},
   result: {type: Boolean, default: null}

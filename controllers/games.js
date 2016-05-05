@@ -9,6 +9,7 @@ module.exports = {
   show:               show,
   startGame:          startGame,
   addInstruction:     addInstruction,
+  addPhoto:           addPhoto,
   deleteInstruction:  deleteInstruction,
   destroy:            destroy,
   status:             status
@@ -134,21 +135,23 @@ function show(req, res, next) {
   var id = req.params.id
 
   Game.findById(id, function(err, game){
-    if(err) res.json(err)
+    if(err) {
+      res.json(err)
+    } else {
+      User.find({_id: {$in: game.player_ids}}, function(err, players) {
+        if (game.host_id == req.user.id){
+          res.json({game: game, user: req.user, players: players})
+        } else {
+          res.json({game: game, user: req.user, players: players})
+        }
+      })
+    }
 
-    User.find({_id: {$in: game.player_ids}}, function(err, players) {
-      if (game.host_id == req.user.id){
-        res.json({game: game, user: req.user, players: players})
-      } else {
-        res.json({game: game, user: req.user, players: players})
-      }
-    })
   })
 }
 
 
 function addInstruction(req, res, next){
-  console.log("Adding Instruction controller")
   var id = req.params.id
   Game.findById(id, function(err, game){
     if(err || !game){
@@ -171,7 +174,32 @@ function addInstruction(req, res, next){
   })
 }
 
+function addPhoto(req, res, next){
+  console.log("Adding Photo controller")
+  var id = req.params.id
+  var photoUrl = req.body.photoUrl
+  var currentTask = req.body.currentTask
+  console.log(currentTask)
+  var photo = {
+    url: photoUrl,
+    player_id: req.user._id,
+    instruction_index: currentTask,
+    time_submitted: new Date()
+  }
+
+  Game.findById(id, function(err, game){
+    if(err) res.json(err)
+    game.photos.push(photo)
+    game.save(function(err, updatedGame){
+      if(err) res.json(err)
+      console.log("added photo to game")
+      res.json(updatedGame.photos[updatedGame.photos.length-1])
+    })
+  })
+}
+
 function deleteInstruction (req, res) {
+  console.log("delete instruction controller function ran")
   var gameId = req.params.gameId
   var instrId = req.params.instrId
 
