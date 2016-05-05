@@ -7,7 +7,7 @@ var instructionSchema = mongoose.Schema({
   task: String,
   level: Number,
   start_time: Date,
-  expiration: Date,
+  exp_time: Date,
   player_ids: [{type: String }]
 })
 
@@ -31,7 +31,7 @@ var gameSchema = mongoose.Schema({
   photos: [photoSchema],
   points: [pointSchema],
   start_time: Date,
-  expiration: Date
+  exp_time: Date
 })
 var Game = mongoose.model("Game", gameSchema)
 
