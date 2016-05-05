@@ -1,4 +1,7 @@
 console.log("main.js loaded")
+var game
+var user
+var players
 var gameId
 var startTime
 var expTime
@@ -6,12 +9,7 @@ var expTime
 //
 // LODASH TEMPLATES
 //
-
-var game = {"_id":"BTLGDq89","host_id":"5729365470a42a48e570bee5","__v":5,"points":[],"photos":[],"instructions":[{"task":"asdfasdf","_id":"572b79744ccb1b6b528c415f","player_ids":[]},{"task":"asdfa","_id":"572b79764ccb1b6b528c4160","player_ids":[]}],"player_ids":[]}
-
-var blah ={ instruction: {"task":"saijk","_id":"572ac67eb7dd8a7607332725","exp_time":"2016-05-05T05:05:51.021Z","start_time":"2016-05-05T04:05:51.021Z","player_ids":[]}, game: game}
-
-var renderInstruction = _.template(`
+var _renderIstruction = _.template(`
   <div class='col s12'>
     <div class='card'>
       <div class='card-content'>
@@ -24,12 +22,20 @@ var renderInstruction = _.template(`
   </div>
   `)
 
-
-
+function renderInstructions(instructions) {
+  instructions.forEach(instruction => {
+    var instructionHtml = _renderIstruction({instruction: instruction, game: game})
+    $("#task-list").append(instructionHtml)
+  })
+}
 
 //
 // /LODASH TEMPLATES
 //
+
+
+
+
 
 $(document).ready(function (){
   gameId = $("#game-id").html()
@@ -38,13 +44,16 @@ $(document).ready(function (){
     method: "GET",
     url: "/api/games/"+ gameId + "/json/"
   }).then(function (res) {
-    var game = res.game
-    // var players = res.players
-    console.log(game)
-    console.log(res)
+    game = res.game
+    user = res.user
+    players = res.players
+
+
+
+    renderInstructions(game.instructions)
+
+
   })
-    // var instrHTML = renderInstruction({instruction: instruction, game: game})
-    // $('#task-list').append(instrHTML)
 
 })
 
