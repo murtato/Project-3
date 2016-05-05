@@ -12,24 +12,29 @@ $(".add-button").on("click", function (e) {
   var t = $("#add-input").val()
   var list = $("#task-list")
 
-  $.ajax({
-    method: "PUT",
-    url: "/api/games/"+ e.target.id,
-    data: {
-      task: t
-    }
-  }).then(function(res){
-    list.empty();
-    res.instructions.forEach(function(ins, index) {
-      list.append(
-
-
-        "<li class='collection-item'>" + index +
-        ". " + ins.task +
-        "<div id="+ins._id+" onclick='deleteHandler(this)' class='delete secondary-content'><i class='material-icons'>delete</i></div></li>"
-      )
+  if (t) {
+    $.ajax({
+      method: "PUT",
+      url: "/api/games/"+ e.target.id,
+      data: {
+        task: t
+      }
+    }).then(function(res){
+      list.empty();
+      res.instructions.forEach(function(ins, index) {
+        list.append(
+          "<div class='col s12'>" +
+            "<div class='card'>" +
+              "<div class='card-content'>" +
+                "<span class='card-title'>" + ins.task + "</span>" +
+                "<button id=" + ins._id + " onclick='deleteHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>" +
+              "</div>" +
+            "</div>" +
+          "</div>"
+        )
+      })
     })
-  })
+  }
 })
 
 
