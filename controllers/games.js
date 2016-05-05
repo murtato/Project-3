@@ -87,7 +87,7 @@ function index(req, res, next){
   });
 }
 
-function renderGame (req, res, next) {
+function renderGame(req, res, next) {
   if(!req.user){
     console.log("you have to be logged in")
     res.redirect('/auth/google')
@@ -98,11 +98,14 @@ function renderGame (req, res, next) {
     Game.findById(id, function(err, game){
       if(err) res.json(err);
 
-      if (game.host_id == req.user.id){
-        res.render('game/host', {game: game, user: req.user})
-      } else {
-        res.render('game/player', {game: game, user: req.user})
-      }
+      User.find({_id: {$in: game.player_ids}}, function(err, players) {
+        if (game.host_id == req.user.id){
+          res.render('game/host', {game: game, user: req.user, players: players})
+        } else {
+          res.render('game/player', {game: game, user: req.user, players: players})
+        }
+      })
+
     });
   }
 }
