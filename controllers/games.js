@@ -8,6 +8,7 @@ module.exports = {
   renderGame:         renderGame,
   startGame:          startGame,
   addInstruction:     addInstruction,
+  addPhoto:           addPhoto,
   deleteInstruction:  deleteInstruction,
   destroy:            destroy
 }
@@ -136,6 +137,21 @@ function addInstruction(req, res, next){
         res.json(updatedGame)
       })
     }
+  })
+}
+
+function addPhoto(req, res, next){
+  // console.log("Adding Photo controller")
+  // var id = req.params.id
+  Game.findById(id, function(err, game){
+  console.log(id)
+//     if(err || !game){
+//       res.json(err)
+//     }else{
+//       var photo = {}
+
+//       console.log(req.body)
+//     }
   })
 }
 
