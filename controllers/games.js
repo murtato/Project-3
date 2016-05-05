@@ -180,13 +180,13 @@ function addPhoto(req, res, next){
     time_submitted: new Date()
   }
 
-  console.log(photoUrl)
   Game.findById(id, function(err, game){
     if(err) res.json(err)
     game.photos.push(photo)
     game.save(function(err, updatedGame){
       if(err) res.json(err)
-      res.json(updatedGame.photos)
+      console.log("added photo to game")
+      res.json(updatedGame.photos[updatedGame.photos.length-1])
     })
   })
 }
