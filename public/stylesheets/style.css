@@ -8,7 +8,14 @@ footer {
   bottom:0px;
   width:100%;
 }
-
 .right-corner{
   float:right;
 }
+.con-space {
+    border: 2px solid black;
+    display: inline-flex;
+    color: red;
+    margin: 5px;
+    padding: 10px;
+}
+

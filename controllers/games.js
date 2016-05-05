@@ -2,13 +2,26 @@ var Game = require("../models/game")
 var User = require("../models/user")
 
 module.exports = {
-  create:           create,
-  join:             join,
-  index:            index,
-  renderGame:       renderGame,
-  startGame:        startGame,
-  addInstruction:   addInstruction,
-  destroy:          destroy
+  create:             create,
+  join:               join,
+  index:              index,
+  renderGame:         renderGame,
+  startGame:          startGame,
+  addInstruction:     addInstruction,
+  deleteInstruction:  deleteInstruction,
+  destroy:            destroy,
+  status:             status
+}
+
+
+function status(req, res, next){
+  console.log("status of this GAME");
+  var id = req.params.id
+  Game.findById(id, function(err, game){
+    if(err) res.json(err);
+    res.json(game)
+  })
+
 }
 
 function create (req, res, next) {
@@ -98,7 +111,9 @@ function renderGame(req, res, next) {
     console.log("show controller worked")
     var id = req.params.id
 
+    console.log(id)
     Game.findById(id, function(err, game){
+      console.log(game)
       if(err) res.json(err);
 
       User.find({_id: {$in: game.player_ids}}, function(err, players) {
@@ -139,6 +154,16 @@ function addInstruction(req, res, next){
   })
 }
 
+function deleteInstruction (req, res) {
+  var gameId = req.params.gameId
+  var instrId = req.params.instrId
+
+  Game.findByIdAndUpdate(gameId, {
+    $pull: {instructions: {_id: instrId}}
+  }, function () {
+    res.json({instrId: instrId})
+  })
+}
 
 function startGame (req, res, next) {
   console.log ("Game is starting")
@@ -168,12 +193,12 @@ function startGame (req, res, next) {
         res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
       })
     }
-
   })
 }
 
 function destroy(req, res, next){
-    var id = req.params.id
+    var id = req.params
+    console.log(req.params)
   console.log("Deleting game", id)
   Game.remove({_id: id}, function(err, game){
     if(err) res.json(err)
