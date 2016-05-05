@@ -1,4 +1,4 @@
-console.log("main.js loaded")
+console.log("hostScript.js loaded")
 var game
 var user
 var players
@@ -48,14 +48,42 @@ $(document).ready(function (){
     user = res.user
     players = res.players
 
-
-
     renderInstructions(game.instructions)
-
 
   })
 
 })
+
+function status(){
+  $.get('/api/games/status/' + gameId)
+  .done(function(data) {
+    console.log(data)
+    console.log("success");
+
+    startTime = new Date(data.start_time)
+    expTime = new Date(data.exp_time)
+    setInterval(function(){
+      var msLeft = expTime - new Date()
+      minLeft = parseInt(msLeft / 1000 / 60);
+      document.getElementById('clockmin').innerHTML = minLeft
+      $( "#clockmin" ).append( document.createTextNode( " min" ) );
+      secsLeft = parseInt(msLeft/1000 - minLeft*60);
+      document.getElementById('clocksec').innerHTML = secsLeft
+      $( "#clocksec" ).append( document.createTextNode( " sec" ) );
+
+    }, 1000);
+    if(startTime == expTime){
+        endGame()
+    }
+  })
+}
+
+function endGame(){
+  $.get('/api/games/status/' + gameId)
+  .done(function(data) {
+    console.log("GAME OVER")
+ })
+}
 
 $(".add-button").on("click", function (e) {
   e.preventDefault
@@ -114,6 +142,14 @@ function startGame(id) {
 
     //remove all delete buttons from tasks
     $(".delete").remove()
+
+    var conSpace = $("<div>").addClass("con-space")
+                             .append($("<div>").attr('id', 'clockmin'))
+                             .append(" : ")
+                             .append($("<div>").attr('id', 'clocksec'))
+    $('#clock').append(conSpace)
+
+    $("#startGame").hide();
+    $(".footer123").hide();
   })
 }
-
