@@ -34,7 +34,19 @@
   </div>
 
   <div class="players-container">
-    list of players will go here
+    <h4>Player ids</h4>
+    <ul>
+      <$ game.player_ids.forEach(player => { $>
+        <li><$= player $></li>
+      <$ }) $>
+    </ul>
+
+    <h4>Player names</h4>
+    <ul>
+      <$ players.forEach(player => { $>
+        <li><$= player.firstName $></li>
+      <$ }) $>
+    </ul>
   </div>
 
   <$ if (!game.start_time) { $>
