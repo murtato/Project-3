@@ -36,3 +36,10 @@ p{
 img {
   padding-left: 15px;
 }
+.con-space {
+    border: 2px solid black;
+    display: inline-flex;
+    color: red;
+    margin: 5px;
+    padding: 10px;
+}

@@ -8,7 +8,19 @@ module.exports = {
   renderGame:       renderGame,
   startGame:        startGame,
   addInstruction:   addInstruction,
-  destroy:          destroy
+  destroy:          destroy,
+  status:           status
+}
+
+
+function status(req, res, next){
+  console.log("status of this GAME");
+  var id = req.params.id
+  Game.findById(id, function(err, game){
+    if(err) res.json(err);
+    res.json(game)
+  })
+
 }
 
 function create (req, res, next) {
@@ -95,7 +107,9 @@ function renderGame (req, res, next) {
     console.log("show controller worked")
     var id = req.params.id
 
+    console.log(id)
     Game.findById(id, function(err, game){
+      console.log(game)
       if(err) res.json(err);
 
       if (game.host_id == req.user.id){
