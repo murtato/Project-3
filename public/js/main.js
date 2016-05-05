@@ -39,9 +39,6 @@ $(".add-button").on("click", function (e) {
   }
 })
 
-
-
-
 function deleteHandler(e) {
   var instrId = e.id
 
@@ -63,6 +60,10 @@ function startGame(id) {
     console.log("game has started.")
     startTime = new Date(data.start_time)
     expTime = new Date(data.exp_time)
+
+
+    //remove all delete buttons from tasks
+    $(".delete").remove()
   })
 }
 
