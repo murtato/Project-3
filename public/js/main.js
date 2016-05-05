@@ -96,7 +96,13 @@ function startGame(id) {
     $(".footer123").hide();
   })
 }
-
+function currentTask(id) {
+  $.ajax({
+    type: "PUT",
+    url: "/api/games/"+id+"/startgame"
+  }).then(function(data){
+    console.log("currentTask working")
+    var currenttask = $()
 
 
 $(".button-collapse").sideNav();
