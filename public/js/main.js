@@ -25,11 +25,38 @@ $(".add-button").on("click", function (e) {
       list.append(
         "<li><div class='collapsible-header'><i class='material-icons'></i>"+
         "Task " + index +
-        "</div><div class='collapsible-body'><p>" + ins.task + "</p></div></li>"
+        "</div><div class='collapsible-body'><p>" + ins.task + "</p>"+
+        "<button id="+ins._id+" onclick='deleteHandler(this)' class='delete'>delete</button></div></li>"
         )
     })
   })
 })
+
+function deleteHandler(e) {
+  var html = $(e).parent().parent();
+  //use AJAX to delete the entire task from our db
+  // $.ajax({
+  //   type: "DELETE",
+  //   url: "/api/games/"+ e.target.id,
+  // }).then(function(res){
+  // html.remove();
+  $.ajax ({
+    type: 'DELETE',
+    url: "/api/games/" + html.data('id')
+  }).success(function(data){
+    html.remove()
+  });
+
+  // console.log(html.data('id'));
+  // })
+}
+
+// //delete a task
+// $(".delete-button").on("click", function(e) {
+//   e.preventDefault
+//   var t = $("#")
+// })
+
 
 function startGame(id) {
   $.ajax({
