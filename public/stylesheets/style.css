@@ -8,5 +8,25 @@ footer {
   bottom:0px;
   width:100%;
 }
-
+@media (min-width: 600px){
+}
+a {
+  color: #00B7FF;
+}
+h1{
+  padding-left: 15px;
+}
+p{
+  padding-left: 15px;
+}
+img {
+  padding-left: 15px;
+}
+.con-space {
+    border: 2px solid black;
+    display: inline-flex;
+    color: red;
+    margin: 5px;
+    padding: 10px;
+}
 

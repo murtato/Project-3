@@ -5,6 +5,7 @@ var gamesController = require("../controllers/games");
 
 
 router.get(     '/',                  gamesController.index);
+router.get("/status/:id",             gamesController.status);
 router.get(     '/:id',               gamesController.renderGame);
 router.post(    '/',                  gamesController.create);
 router.post(    '/join',              gamesController.join);
