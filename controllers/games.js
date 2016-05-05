@@ -117,7 +117,6 @@ function renderGame(req, res, next) {
 
 
 function addInstruction(req, res, next){
-  console.log("Adding Instruction controller")
   var id = req.params.id
   Game.findById(id, function(err, game){
     if(err || !game){
