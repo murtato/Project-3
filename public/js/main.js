@@ -7,7 +7,6 @@ $(document).ready(function (){
   gameId = $("#game-id").html()
 })
 
-
 $(".add-button").on("click", function (e) {
   e.preventDefault
   var t = $("#add-input").val()
@@ -27,36 +26,23 @@ $(".add-button").on("click", function (e) {
         "Task " + index +
         "</div><div class='collapsible-body'><p>" + ins.task + "</p>"+
         "<button id="+ins._id+" onclick='deleteHandler(this)' class='delete'>delete</button></div></li>"
-        )
+      )
     })
   })
 })
 
 function deleteHandler(e) {
-  var html = $(e).parent().parent();
-  //use AJAX to delete the entire task from our db
-  // $.ajax({
-  //   type: "DELETE",
-  //   url: "/api/games/"+ e.target.id,
-  // }).then(function(res){
-  // html.remove();
-  $.ajax ({
-    type: 'DELETE',
-    url: "/api/games/" + html.data('id')
-  }).success(function(data){
-    html.remove()
-  });
+  var instrId = e.id
 
-  // console.log(html.data('id'));
-  // })
+  console.log("clicked delete button")
+
+  $.ajax({
+    method: "PUT",
+    url:'/api/games/'+ gameId + "/" + instrId
+  }).then(function (data) {
+    $('#'+data.instrId).parent().parent().remove()
+  })
 }
-
-// //delete a task
-// $(".delete-button").on("click", function(e) {
-//   e.preventDefault
-//   var t = $("#")
-// })
-
 
 function startGame(id) {
   $.ajax({
@@ -70,7 +56,6 @@ function startGame(id) {
 }
 
 $(".button-collapse").sideNav();
-// Initialize collapsible (uncomment the line below if you use the dropdown variation)
 $('.button-collapse').sideNav('show');
 $('.button-collapse').sideNav('hide');
 
