@@ -94,7 +94,7 @@ $(".add-button").on("click", function (e) {
   if (t) {
     $.ajax({
       method: "PUT",
-      url: "/api/games/"+ e.target.id,
+      url: "/api/games/"+ e.target.id+ "/instruction",
       data: {
         task: t
       }
@@ -124,7 +124,7 @@ function deleteHandler(e) {
 
   $.ajax({
     method: "PUT",
-    url:'/api/games/'+ gameId + "/" + instrId
+    url:'/api/games/'+ gameId + "/instruction/" + instrId
   }).then(function (data) {
     $('#'+data.instrId).parent().parent().remove()
   })

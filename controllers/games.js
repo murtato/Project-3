@@ -171,21 +171,28 @@ function addInstruction(req, res, next){
 }
 
 function addPhoto(req, res, next){
-  // console.log("Adding Photo controller")
-  // var id = req.params.id
-  Game.findById(id, function(err, game){
-  console.log(id)
-//     if(err || !game){
-//       res.json(err)
-//     }else{
-//       var photo = {}
+  console.log("Adding Photo controller")
+  var id = req.params.id
+  var photoUrl = req.body.photoUrl
+  var photo = {
+    url: photoUrl,
+    player_id: req.user._id,
+    time_submitted: new Date()
+  }
 
-//       console.log(req.body)
-//     }
+  console.log(photoUrl)
+  Game.findById(id, function(err, game){
+    if(err) res.json(err)
+    game.photos.push(photo)
+    game.save(function(err, updatedGame){
+      if(err) res.json(err)
+      res.json(updatedGame.photos)
+    })
   })
 }
 
 function deleteInstruction (req, res) {
+  console.log("delete instruction controller function ran")
   var gameId = req.params.gameId
   var instrId = req.params.instrId
 
