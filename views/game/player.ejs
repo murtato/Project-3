@@ -6,9 +6,7 @@
 </head>
 <body class="center-align" >
   <$- include('../partials/navbar') $>
-
 <div class="container">
-
    <!-- This when player waiting for game to start -->
     <div class="card">
       <div class="chip">
@@ -17,9 +15,7 @@
       </div>
     </div>
     <div class="divider"></div>
-
       <$ if(!game.start_time) { $>
-
         <div class="section">
         <h5>waiting for game to start</h5>
         <div class="progress">
@@ -49,7 +45,7 @@
             </div>
             <div class="divider"></div>
             <div class="section" id="upcoming">
-              <h5>Umpcoming Tasks</h5>
+              <h5>Upcoming Tasks</h5>
               <div class="row">
                 <div class="col s12 m7">
                   <div class="card">
@@ -87,14 +83,11 @@
                 </div>
               </div>
             </div>
-
-
           <$ } $>
           <div class="divider"></div>
             <div class="section" id="players">
               <h5>Players</h5>
                 <div class="card">
-
                 <$ players.forEach(player => { $>
                   <div class="chip">
                     <img src="<$= player.imageUrl $>" alt="Contact Person">
@@ -107,12 +100,19 @@
       <a href="/users/leavegame" title="leave game">Leave Game</a>
     </div>
   </div>
-
-
   <$- include('../partials/script') $>
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 
