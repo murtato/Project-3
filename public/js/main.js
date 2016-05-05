@@ -12,6 +12,7 @@ $(".add-button").on("click", function (e) {
   var t = $("#add-input").val()
   var list = $("#task-list")
 
+
   if (t) {
     $.ajax({
       method: "PUT",
@@ -33,6 +34,7 @@ $(".add-button").on("click", function (e) {
           "</div>"
         )
       })
+      $("#add-input").val("")
     })
   }
 })

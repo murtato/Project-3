@@ -7,55 +7,63 @@
   <$- include('../partials/navbar') $>
 
   <div class="container">
-
-  <div class="row">
-    <div class="col s12">
-        <input id="add-input" type="text" class="input-instruction" name="instruction[task]" placeholder="Add a task">
-        <button  class="add-button btn" id="<$= game.id $>">Add</button>
-    </div>
-  </div>
-
-  <div id="task-list" class="row left-align">
-    <$ game.instructions.forEach(instruction => { $>
-      <div class='col s12'>
-        <div class='card'>
-          <div class='card-content'>
-            <span class='card-title'><$= instruction.task $></span>
-            <button id="<$= instruction._id $>" onclick='deleteHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>
+    <div class="section">
+      <h5>Tasks</h5>
+      <$ if (!game.start_time) { $>
+        <div class="row">
+          <div class="col s12">
+              <input id="add-input" type="text" class="input-instruction" name="instruction[task]" placeholder="Add a task">
+              <button  class="add-button btn" id="<$= game.id $>">Add</button>
           </div>
         </div>
+      <$ } $>
+
+
+      <div id="task-list" class="row left-align">
+        <$ game.instructions.forEach(instruction => { $>
+          <div class='col s12'>
+            <div class='card'>
+              <div class='card-content'>
+                <span class='card-title'><$= instruction.task $></span>
+                <$ if (!game.start_time) { $>
+                  <button id="<$= instruction._id $>" onclick='deleteHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>
+                <$ } $>
+              </div>
+            </div>
+          </div>
+        <$ }) $>
+
       </div>
-    <$ }) $>
-
-  </div>
+    </div>
 
 
-  <div class="secret-code-container">
-    <p>Your secret code is <span id="game-id"><$= game._id $></span></p>
-  </div>
+    <div class="secret-code-container">
+      <p>Your secret code is <span id="game-id"><$= game._id $></span></p>
+    </div>
 
-  <div>
-    <p>start_time = <$= game.start_time $></p>
-    <p>exp_time = <$= game.exp_time $></p>
-  </div>
+    <div>
+      <p>start_time = <$= game.start_time $></p>
+      <p>exp_time = <$= game.exp_time $></p>
+    </div>
 
 
 
-  <div class="players-container">
-    <h4>Player ids</h4>
-    <ul>
-      <$ game.player_ids.forEach(player => { $>
-        <li><$= player $></li>
-      <$ }) $>
-    </ul>
+    <div class="players-container">
+      <h4>Player ids</h4>
+      <ul>
+        <$ game.player_ids.forEach(player => { $>
+          <li><$= player $></li>
+        <$ }) $>
+      </ul>
 
-    <h4>Player names</h4>
-    <ul>
-      <$ players.forEach(player => { $>
-        <li><$= player.firstName $></li>
-      <$ }) $>
-    </ul>
-  </div>
+      <h4>Player names</h4>
+      <ul>
+        <$ players.forEach(player => { $>
+          <li><$= player.firstName $></li>
+        <$ }) $>
+      </ul>
+    </div>
+  </div> <!-- for container div -->
 
   <$ if (!game.start_time) { $>
   <footer class="page-footer indigo">
@@ -71,7 +79,6 @@
   </footer>
   <$ } $>
 
-  </div> <!-- for container div -->
   <$- include('../partials/script') $>
 </body>
 </html>
