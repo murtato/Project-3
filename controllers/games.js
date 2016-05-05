@@ -212,8 +212,6 @@ function startGame (req, res, next) {
           {$set: {currentTask: 0}}, function (err) {
             res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
         })
-
-
       })
     }
   })
@@ -227,6 +225,8 @@ function destroy(req, res, next){
     if(err) res.json(err)
     res.json({msg: "Game deleted", _id: id})
   })
+
+
 }
 
 
