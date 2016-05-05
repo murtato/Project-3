@@ -207,6 +207,7 @@ function startGame (req, res, next) {
         console.log('updated Game start time')
 
         res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
+
       })
     }
   })

@@ -151,5 +151,6 @@ function startGame(id) {
 
     $("#startGame").hide();
     $(".footer123").hide();
+
   })
 }
