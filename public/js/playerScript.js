@@ -19,6 +19,7 @@ var renderCurrentTask = _.template(`
           <div class="card-content">
             <span class="card-title">Task</span>
             <p class="current-task"><%= task %></p>
+            <img id="photo"></img>
           </div>
             <div class="row">
               <div class="col s12">
@@ -79,6 +80,11 @@ function addPhoto(gameId) {
       currentTask: user.currentTask
     }
   }).then(function (res){
-    console.log(res)
+    // user._id => res = {return photoUrl, result = null}
+    console.log('Response recieved')
+    $("#photo").attr("src", photoUrl)
+    $("#photo").attr("height", 300)
+    $("#photo").attr("width", 300)
+    // game.save()
   })
 }
