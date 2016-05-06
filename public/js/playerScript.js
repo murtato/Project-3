@@ -100,25 +100,27 @@ $(document).ready(function() {
 function addPhoto(gameId) {
   console.log(gameId)
   var photoUrl = $("#photo-url").val()
-  console.log(photoUrl)
+  var first4Letters = photoUrl.substring(0,4)
+  if (first4Letters != "http"){
+    Materialize.toast('Not a valid image url!', 4000)
+  } else {
+    $.ajax({
+      method: "PUT",
+      url: "/api/games/" + gameId + "/photo",
+      data: {
+        photoUrl: photoUrl,
+        currentTask: user.currentTask
+      }
+    }).then(function (res){
+      console.log("addPhoto is working")
+      console.log(res)
+      $("#photo-url").val("")
 
-  console.log("stop here")
-  $.ajax({
-    method: "PUT",
-    url: "/api/games/" + gameId + "/photo",
-    data: {
-      photoUrl: photoUrl,
-      currentTask: user.currentTask
-    }
-  }).then(function (res){
-    console.log("addPhoto is working")
-    console.log(res)
-    $("#photo-url").val("")
+      console.log('Response recieved')
+      $("#photo").attr("src", photoUrl)
+      $("#photo").attr("height", 300)
+      $("#photo").attr("width", 300)
 
-    console.log('Response recieved')
-    $("#photo").attr("src", photoUrl)
-    $("#photo").attr("height", 300)
-    $("#photo").attr("width", 300)
-
-  })
+    })
+  }
 }
