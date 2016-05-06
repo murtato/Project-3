@@ -17,7 +17,7 @@
     <div class="section">
       <h5>Tasks</h5>
       <$ if (!game.start_time) { $>
-        <div class="row">
+        <div id="add-instruction-form" class="row">
           <div class="col s12">
               <input id="add-input" type="text" class="input-instruction" name="instruction[task]" placeholder="Add a task">
               <button  class="add-button btn" id="<$= game.id $>">Add</button>

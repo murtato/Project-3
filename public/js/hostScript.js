@@ -24,7 +24,7 @@ var _renderInstruction = _.template(`
 
 function renderInstructions(instructions) {
   instructions.forEach(instruction => {
-
+    renderInstruction(instruction)
   })
 }
 
@@ -79,6 +79,7 @@ $(document).ready(function (){
     players = res.players
 
     renderInstructions(game.instructions)
+
     if(game.start_time){
       renderPhotos(game.photos)
     }
@@ -184,6 +185,7 @@ function startGame(id) {
 
     $("#startGame").hide();
     $(".footer123").hide();
+    $("#add-instruction-form").remove()
 
   })
 }
