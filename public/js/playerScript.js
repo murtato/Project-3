@@ -12,35 +12,37 @@ var expTime
 var renderCurrentTask = _.template(`
   <h5>Current Task</h5>
   <div class="row">
-      <div class="col s12 m7">
-        <div class="card">
+      <div class="col s12">
+        <div class="card taco">
           <div class="card-image">
           </div>
           <div class="card-content">
             <span class="card-title">Task</span>
             <p class="current-task"><%= task %></p>
           </div>
-          <div class="card-action">
-            <form action="player_submit" method="post">
-              <button type="submit">upload</button>
-             </form>
-          </div>
+            <div class="row">
+              <div class="col s12">
+                <input id="photo-url" type="text" placeholder="Add a photo url">
+                <button id="submit-photo" class="btn"  onclick="addPhoto('<$= game.id $>')">Submit</button>
+              </div>
+            </div>
         </div>
       </div>
     </div>
   `)
 var renderUpcomingTask = _.template(`
-  <div class="row">
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Task</span>
-            <p><%= task %></p>
+  <h5>Upcoming Tasks</h5>
+    <div class="row">
+        <div class="col s12">
+          <div class="card taco">
+            <div class="card-content">
+              <span class="card-title">Task</span>
+              <p><%= task %></p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  `)
+    `)
 
 $(document).ready(function() {
   $.get(window.location.pathname + "/json")
@@ -58,7 +60,7 @@ $(document).ready(function() {
       console.log(index)
       console.log(currentTask)
       if(currentTask == index) {
-        $("#current").append(renderCurrentTask(task))
+        $("#current-container").append(renderCurrentTask(task))
       }else if(currentTask < index ){
         $("#upcoming-container").append(renderUpcomingTask(task))
       }
