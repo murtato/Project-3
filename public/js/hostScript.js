@@ -61,6 +61,12 @@ function renderPhotos(photos){
 }
 
 function renderPhoto(photo){
+  // check if url is a real url
+  var first4Letters = photo.url.substring(0,3)
+  if (first4Letters != "http" && first4Letters != "data"){
+    photo.url = "https://i.imgflip.com/13ojqf.jpg"
+  }
+
   photoHtml = _renderPhoto({photo: photo})
   $("#photos-container").append(photoHtml)
 }
@@ -74,6 +80,7 @@ function renderPhoto(photo){
 
 $(document).ready(function (){
   gameId = $("#game-id").html()
+  console.log(gameId)
 
   $.ajax({
     method: "GET",
@@ -235,7 +242,7 @@ function updatePhotoInDb(photoId, result) {
     game = res
 
     //remove photo from dom
-    $("#"+photoId).parent().parent().parent().parent().remove()
+    $("#"+photoId).parent().parent().parent().remove()
   })
 }
 

@@ -111,12 +111,13 @@ function renderGame(req, res, next) {
     console.log("you have to be logged in")
     res.redirect('/auth/google')
   } else {
-    console.log("renderGame controller worked")
+    console.log("renderGame controller triggered")
     var id = req.params.id
 
-    console.log(id)
     Game.findById(id, function(err, game){
-      console.log(game)
+      console.log("found game, req.params.id = ")
+      console.log(req.params.id)
+
       if(err) res.json(err);
 
       User.find({_id: {$in: game.player_ids}}, function(err, players) {
@@ -201,9 +202,6 @@ function updatePhoto(req, res, next) {
   var gameId = req.params.gameId
   var photoId = req.params.photoId
   var result = req.body.result
-
-Model.update(query, { $set: { name: 'jason borne' }}, options, callback)
-
 
   Game.findById(gameId, function (err, game){
     if (err) res.json(err)
