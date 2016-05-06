@@ -77,6 +77,10 @@ $(document).ready(function (){
     user = res.user
     players = res.players
 
+    if (game.instructions.length > 0) {
+      $("#startGame").removeClass('disabled')
+    }
+
     renderInstructions(game.instructions)
 
     if(game.start_time){
@@ -149,6 +153,8 @@ $(".add-button").on("click", function (e) {
       })
       $("#add-input").val("")
 
+      $("#startGame").removeClass('disabled')
+
     })
   }
 })
@@ -167,30 +173,33 @@ function deleteInstructionHandler(e) {
 }
 
 function startGame(id) {
-  if (game.instructions.length)
-  $.ajax({
-    type: "PUT",
-    url: "/api/games/"+id+"/startgame"
-  }).then(function(data){
-    console.log("game has started.")
-    startTime = new Date(data.start_time)
-    expTime = new Date(data.exp_time)
+  console.log("please add an instruction")
+  if (game.instructions.length > 0) {
+    console.log("starting game")
+    $.ajax({
+      type: "PUT",
+      url: "/api/games/"+id+"/startgame"
+    }).then(function(data){
+      console.log("game has started.")
+      startTime = new Date(data.start_time)
+      expTime = new Date(data.exp_time)
 
 
-    //remove all delete buttons from tasks
-    $(".delete").remove()
+      //remove all delete buttons from tasks
+      $(".delete").remove()
 
-    var conSpace = $("<div>").addClass("con-space")
-                             .append($("<div>").attr('id', 'clockmin'))
-                             .append(" : ")
-                             .append($("<div>").attr('id', 'clocksec'))
-    $('#clock').append(conSpace)
+      var conSpace = $("<div>").addClass("con-space")
+                               .append($("<div>").attr('id', 'clockmin'))
+                               .append(" : ")
+                               .append($("<div>").attr('id', 'clocksec'))
+      $('#clock').append(conSpace)
 
-    $("#startGame").hide();
-    $(".footer123").hide();
-    $("#add-instruction-form").remove()
+      $("#startGame").hide();
+      $(".footer123").hide();
+      $("#add-instruction-form").remove()
+    })
 
-  })
+  }
 }
 
 function acceptPhotoHandler(e) {
