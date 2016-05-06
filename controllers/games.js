@@ -206,7 +206,7 @@ function updatePhoto(req, res, next) {
     var photo = game.photos.id(photoId)
     photo.result = result
 
-    if (result == true) {
+    if (result == 'true') {
       console.log("adding 1")
       var playerId = photo.player_id
       User.findById(playerId, function (err, user) {
