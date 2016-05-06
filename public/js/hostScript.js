@@ -35,15 +35,19 @@ function renderInstruction(instruction) {
 
 
 var _renderPhoto = _.template(`
-    <div id='<%= photo.instruction_index %>' class='card'>
+    <div class='card'>
       <div class='card-image waves-effect waves-block waves-light'>
         <img class='activator' src='<%= photo.url %>'>
       </div>
       <div class='card-content'>
-        <%= game.photos[0] %>
+        <div>
+          <span class="card-title"><%= game.instructions[photo.instruction_index].task %></span>
+        </div>
 
-        <button onclick='acceptPhotoHandler(this)' class='btn-large'><i class='material-icons'>thumb_up</i></button>
-        <button onclick='rejectPhotoHandler(this)' class='btn-large'><i class='material-icons'>thumb_down</i></button>
+        <div>
+          <button onclick='acceptPhotoHandler(this)' id='<%= photo._id %>' class='btn-large'><i class='material-icons'>thumb_up</i></button>
+          <button onclick='rejectPhotoHandler(this)' id='<%= photo._id %>' class='btn-large'><i class='material-icons'>thumb_down</i></button>
+        </div>
       </div>
     </div>
   `)
@@ -206,7 +210,35 @@ function startGame(id) {
 
 function acceptPhotoHandler(e) {
   console.log("accepting photo")
+  var photoId = e.id
 
+  updatePhotoInDb(photoId, true)
 }
+
+function rejectPhotoHandler(e) {
+  console.log("rejecting photo")
+  var photoId = e.id
+
+  updatePhotoInDb(photoId, false)
+}
+
+function updatePhotoInDb(photoId, result) {
+  $.ajax({
+    method: "PUT",
+    url:'/api/games/'+ gameId + "/photo/" + photoId,
+    data:{
+      result: result
+    }
+  }).then(function (res) {
+    console.log("Photo updated")
+    console.log(res)
+    game = res
+
+    //remove photo from dom
+    $("#"+photoId).parent().parent().parent().parent().remove()
+  })
+}
+
+
 
 

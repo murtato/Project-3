@@ -6,7 +6,7 @@ var userSchema = new mongoose.Schema({
   imageUrl: String,
   email: String,
   googleId: String,
-  currentTask: Number,
+  currentTask: {type: Number, default: 0},
   currentGame: String
 })
 

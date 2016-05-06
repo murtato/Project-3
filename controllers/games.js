@@ -10,6 +10,7 @@ module.exports = {
   startGame:          startGame,
   addInstruction:     addInstruction,
   addPhoto:           addPhoto,
+  updatePhoto:        updatePhoto,
   deleteInstruction:  deleteInstruction,
   destroy:            destroy,
   status:             status
@@ -193,6 +194,32 @@ function addPhoto(req, res, next){
     })
   })
 }
+
+function updatePhoto(req, res, next) {
+  console.log("update photo controller ran")
+
+  var gameId = req.params.gameId
+  var photoId = req.params.photoId
+  var result = req.body.result
+
+Model.update(query, { $set: { name: 'jason borne' }}, options, callback)
+
+
+  Game.findById(gameId, function (err, game){
+    if (err) res.json(err)
+
+    var photo = game.photos.id(photoId)
+    photo.result = result
+
+    game.save(function (err, updatedGame) {
+      if (err) res.json(err)
+      res.json(updatedGame)
+    })
+  })
+
+
+}
+
 
 function deleteInstruction (req, res) {
   console.log("delete instruction controller function ran")

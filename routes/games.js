@@ -14,6 +14,7 @@ router.put(     '/:id/instruction',   gamesController.addInstruction);
 router.put(     '/:gameId/instruction/:instrId',  gamesController.deleteInstruction);
 router.put(     '/:id/startgame',     gamesController.startGame);
 router.put(     '/:id/photo',         gamesController.addPhoto)
+router.put(     '/:gameId/photo/:photoId',gamesController.updatePhoto)
 router.delete(  '/:id',               gamesController.destroy);
 
 
