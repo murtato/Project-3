@@ -88,8 +88,6 @@ $(document).ready(function() {
     var currentTask = data.user.currentTask
 
     instructions.forEach(function(task, index) {
-      console.log(index)
-      console.log(currentTask)
       if(currentTask == index) {
         $("#current-container").append(renderCurrentTask(task))
       }else if(currentTask < index ){
