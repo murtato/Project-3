@@ -5,20 +5,24 @@
 </head>
 <body>
 <$- include('../partials/navbar') $>
+<div class="center-align container page-btn">
+  <div class="row">
+    <div class="col s12 m8 push-m2">
 
-<div class="center-align container">
-    <div class="chip">
-      <img src="<$= user.imageUrl $>" alt="Contact Person">
-      <$= user.firstName $>
+      <div class="card choice-btn">
+        <div class="chip">
+          <img src="<$= user.imageUrl $>" alt="Contact Person">
+          <$= user.firstName $>
+        </div>
+      </div>
     </div>
-
+  </div>
     <$ if(!game.start_time) { $>
       <h5>waiting for game to start</h5>
       <div class="progress">
         <div class="indeterminate"></div>
       </div>
     <$ } else { $>
-
     <div id="time-container" class="section">
       <h5>Time Left</h5>
       <div id="clock">
@@ -61,16 +65,5 @@
 <$- include('../partials/playerScript') $>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 

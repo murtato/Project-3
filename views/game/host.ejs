@@ -3,25 +3,41 @@
 <head>
   <$- include('../partials/head') $>
 </head>
-<body class="center-align">
+<body class="">
 <$- include('../partials/navbar') $>
 
-<div id="host-body-container" class="container">
+<div id="host-body-container" class="container center-align">
+  <div class="row">
 
-    <div id="secret-code-container" class="section">
-      <h5><span id="game-id"><$= game._id $></span></h5>
-      <p>People can join your game by entering this secret code.</p>
+    <div class="col s12 m8 push-m2">
+      <div class="card">
+        <div id="secret-code-container" class="section">
+          <div class="chip">
+              <img src="<$= user.imageUrl $>" alt="Contact Person">
+              <$= user.firstName $>
+          </div>
+            <h5><span id="game-id"><$= game._id $></span></h5>
+            <p>People can join your game by entering this secret code.</p>
+          </div>
+        </div>
     </div>
-    <div class="divider"></div>
+  </div>
 
+<div class="card">
     <$ if (game.start_time) { $>
       <div id="time-container" class="section">
         <h5>Time Left</h5>
         <div id="clock">
-          <div class="con-space">
-            <div id="clockmin"></div> : <div id="clocksec"></div>
+          <div class="row">
+            <div class="col s11 m8 push-m2">
+              <div class="card">
+                <div class="con-space">
+                  <div id="clockmin"></div> : <div id="clocksec"></div>
+                </div>
+              </div>
+            </div>
           </div>
-      </div>
+        </div>
     </div>
 
     <div id="photos-container" class="section">
@@ -53,6 +69,7 @@
           </div>
         </div>
       <$ } $>
+</div>
 
         <div id="task-list" class="row left-align"></div>
     </div>
