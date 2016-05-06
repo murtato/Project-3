@@ -17,8 +17,7 @@ var renderCurrentTask = _.template(`
           <div class="card-image">
           </div>
           <div class="card-content">
-            <span class="card-title">Task</span>
-            <p class="current-task"><%= task %></p>
+            <p class="current-task card-title"><%= task %></p>
             <img id="photo"></img>
           </div>
             <div class="row">
@@ -49,7 +48,6 @@ var renderAcceptedPhoto = _.template(`
       <div class="card">
         <div class="card-image">
           <img src="<%= photo.url %>">
-          <span class="card-title">Task</span>
         </div>
         <div class="card-content">
           <span class="card-title"><%= game.instructions[photo.instruction_index].task %></span>
