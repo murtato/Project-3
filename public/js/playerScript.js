@@ -41,7 +41,21 @@ var renderUpcomingTask = _.template(`
       </div>
     </div>
   `)
-
+var renderAcceptedPhoto = _.template(`
+  <div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="<%= game.photo %>">
+          <span class="card-title">Task</span>
+        </div>
+        <div class="card-content">
+          <p class="task-of-accepted-photo"><% task %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  `)
 $(document).ready(function() {
   $.get(window.location.pathname + "/json")
   .then(data => {
@@ -62,6 +76,9 @@ $(document).ready(function() {
       }else if(currentTask < index ){
         $("#upcoming-container").append(renderUpcomingTask(task))
       }
+      if(true){
+         $("#acccepted-picture").append(renderAcceptedPhoto(task))
+      }
     })
   })
 })
@@ -77,6 +94,7 @@ function addPhoto(gameId) {
       currentTask: user.currentTask
     }
   }).then(function (res){
+    console.log("addPhoto is working")
     console.log(res)
   })
 }
