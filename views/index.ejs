@@ -10,7 +10,7 @@
   <div class="container">
     <$ if (user && !user.currentGame) { $>
 
-      <div class="row">
+      <div class="row"><br><br>
         <form id="create-game" action="/api/games" method="post">
           <button type="submit" class="waves-effect waves-light btn-large">Create Game</button>
         </form>
@@ -20,7 +20,7 @@
         <form action="/api/games/join" method="post">
           <label for="search">Join A Game</label>
           <input id="join-game" type="text" name="gameId" placeholder="">
-          <input type="submit" value="join">
+          <input type="submit" value="join" class="waves-effect waves-light btn-large">
         </form>
       </div>
 
