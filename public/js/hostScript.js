@@ -81,6 +81,7 @@ function renderPhoto(photo){
 $(document).ready(function (){
   gameId = $("#game-id").html()
   console.log(gameId)
+  status()
 
   // $.ajax({
   //   method: "GET",
