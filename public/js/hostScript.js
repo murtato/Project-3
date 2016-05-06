@@ -117,7 +117,9 @@ $(document).ready(function (){
 
       Materialize.toast(res.msg, 4000)
 
-      renderPlayer(res.data)
+      if(res.event == "joined"){
+        renderPlayer(res.data)
+      }
 
     })
 
@@ -132,6 +134,10 @@ $(document).ready(function (){
     }
 
     renderInstructions(game.instructions)
+
+    players.forEach(player => {
+      renderPlayer(player)
+    })
 
     if(game.start_time){
       renderPhotos(game.photos)
