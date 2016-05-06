@@ -242,7 +242,7 @@ function addPhoto(gameId) {
      $(".loading-gose-here").addClass('indeterminate')
      $(".progress").show()
      $(".waiting-for-host").show()
-     $("#waiting-bar-goes-here").append($("<div class='progress'><div class='loading-gose-here'></div></div>"
+     $("#waiting-bar-goes-here").append($("<div class='progress'><div class='indeterminate'></div></div>"
 ))
      $("#waiting-bar-goes-here").append($("<span class='waiting-for-host'>waiting for host...</span>"))
 
