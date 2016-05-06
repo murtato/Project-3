@@ -242,12 +242,14 @@ function updatePhoto(req, res, next) {
 
       // send web socket message
       if (result == 'true'){
+        var event = "photoAccepted"
         var msg = "Hey look at that! " + req.user.firstName + " gets to move on."
       } else {
+        var event = "photoRejected"
         var msg = "Seriously, " + req.user.firstName + "? Try again, plebian."
       }
 
-      io.emit(gameId, {event: "photoJudged", msg: msg, data: photo})
+      io.emit(gameId, {event: event, msg: msg, data: photo})
     })
   })
 

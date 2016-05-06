@@ -10,8 +10,7 @@ var expTime
 //
 
 var renderCurrentTask = _.template(`
-  <h5>Current Task</h5>
-  <div class="row">
+  <div class="row incomplete-tasks">
       <div class="col s12 m8 push-m2">
         <div class="card">
           <div class="card-image">
@@ -32,7 +31,7 @@ var renderCurrentTask = _.template(`
     </div>
   `)
 var renderUpcomingTask = _.template(`
-    <div class="row">
+    <div class="row incomplete-tasks">
         <div class="col s12 m8 push-m2">
           <div class="card">
             <div class="card-content">
@@ -88,9 +87,40 @@ $(document).ready(function() {
         renderPlayer(res.data)
       }
 
-      if(res.event == "photoJudged"){
-        console.log("photo was judged")
-        console.log(res.data)
+      if(res.event == "photoAccepted"){
+        console.log("photo was accepted")
+        $("#acccepted-picture").append(renderAcceptedPhoto({photo:res.data}))
+
+        $(".incomplete-tasks").remove()
+
+        var instructions = data.game.instructions
+        var currentTask = data.user.currentTask
+
+        instructions.forEach(function(task, index) {
+          if(currentTask == index) {
+            $("#current-container").append(renderCurrentTask(task))
+          }else if(currentTask < index ){
+            $("#upcoming-container").append(renderUpcomingTask(task))
+          }
+        })
+
+      }
+
+      if(res.event == "photoRejected"){
+        console.log("photo was rejected")
+
+        $(".incomplete-tasks").remove()
+
+        var instructions = data.game.instructions
+        var currentTask = data.user.currentTask
+
+        instructions.forEach(function(task, index) {
+          if(currentTask == index) {
+            $("#current-container").append(renderCurrentTask(task))
+          }else if(currentTask < index ){
+            $("#upcoming-container").append(renderUpcomingTask(task))
+          }
+        })
       }
 
     })
@@ -140,11 +170,9 @@ function addPhoto(gameId) {
         currentTask: user.currentTask
       }
     }).then(function (res){
-      console.log("addPhoto is working")
-      console.log(res)
+      console.log("Photo was added")
       $("#photo-url").val("")
 
-      console.log('Response recieved')
       $("#photo").attr("src", photoUrl)
       $("#photo").attr("height", 300)
       $("#photo").attr("width", 300)
