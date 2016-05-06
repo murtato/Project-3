@@ -81,6 +81,18 @@ var renderUserPlayerWaiting = _.template(`
 
   `)
 
+var _renderPlayer = _.template(`
+    <div class='chip'>
+      <img src='<%= player.imageUrl %>'>
+      <%= player.firstName %>
+    </div>
+  `)
+
+function renderPlayer(player) {
+  var playerHtml = _renderPlayer({player: player})
+  $("#players-container").append(playerHtml)
+}
+
 
 
 $(document).ready(function() {
@@ -117,7 +129,11 @@ $(document).ready(function() {
 
       if(res.event == "photoAccepted"){
         console.log("photo was accepted")
-        $("#acccepted-picture").append(renderAcceptedPhoto({photo:res.data}))
+
+        console.log(res.data.player_id)
+        if (res.data.player_id){
+          $("#acccepted-picture").append(renderAcceptedPhoto({photo:res.data}))
+        }
 
         $(".incomplete-tasks").remove()
 
