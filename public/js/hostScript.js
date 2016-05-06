@@ -62,7 +62,9 @@ function renderPhotos(photos){
 
 function renderPhoto(photo){
   // check if url is a real url
-  var first4Letters = photo.url.substring(0,3)
+  var first4Letters = photo.url.substring(0,4)
+  console.log("trying to render image")
+  console.log("first4Letters = " + first4Letters)
   if (first4Letters != "http" && first4Letters != "data"){
     photo.url = "https://i.imgflip.com/13ojqf.jpg"
   }
