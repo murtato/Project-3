@@ -25,6 +25,7 @@ function create (req, res, next) {
 function leaveGame(req, res) {
   User.findById(req.user.id, function (err, user) {
     user.currentGame = null
+    user.currentTask = 0
 
     user.save(function (err, savedUser) {
       if (err) next (err)
