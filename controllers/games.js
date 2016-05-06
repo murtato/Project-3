@@ -92,7 +92,6 @@ function join(req, res, next) {
                 if (err) res.json(err)
                 res.redirect('/api/games/'+updatedGame._id)
                 io.emit(gameId, {event: "joined", msg: req.user.firstName + " joined", data: req.user})
-                console.log("gameId =", gameId)
               })
             })
           })
@@ -203,7 +202,9 @@ function addPhoto(req, res, next){
     game.save(function(err, updatedGame){
       if(err) res.json(err)
       console.log("added photo to game")
-      res.json(updatedGame.photos[updatedGame.photos.length-1])
+      var updatedPhoto = updatedGame.photos[updatedGame.photos.length-1]
+      res.json(updatedPhoto)
+      io.emit(id, {event: "photoAdded", msg: req.user.firstName + " submitted a photo!", data: updatedPhoto})
     })
   })
 }

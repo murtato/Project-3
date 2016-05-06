@@ -116,13 +116,16 @@ $(document).ready(function (){
       console.log("message recieved")
 
       Materialize.toast(res.msg, 4000)
-
       if(res.event == "joined"){
         renderPlayer(res.data)
       }
 
-    })
+      if(res.event == "photoAdded"){
+        console.log("photo added")
+        renderPhoto(res.data)
+      }
 
+    })
     // ----- End Web Sockets
 
     if (game.exp_time){
@@ -238,16 +241,14 @@ function startGame(id) {
       startTime = new Date(data.start_time)
       expTime = new Date(data.exp_time)
 
-
-      //remove all delete buttons from tasks
-      $(".delete").remove()
-
       var conSpace = $("<div>").addClass("con-space")
                                .append($("<div>").attr('id', 'clockmin'))
                                .append(" : ")
                                .append($("<div>").attr('id', 'clocksec'))
       $('#clock').append(conSpace)
 
+      //remove all delete buttons from tasks
+      $(".delete").remove()
       $("#startGame").hide();
       $(".footer123").hide();
       $("#add-instruction-form").remove()
