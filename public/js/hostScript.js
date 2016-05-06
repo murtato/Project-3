@@ -72,6 +72,19 @@ function renderPhoto(photo){
   $("#photos-container").append(photoHtml)
 }
 
+
+var _renderPlayer = _.template(`
+    <div class='chip'>
+      <img src='<%= player.imageUrl %>'>
+      <%= player.firstName %>
+    </div>
+  `)
+
+function renderPlayer(player) {
+  var playerHtml = _renderPlayer({player: player})
+  $("#players-container").append(playerHtml)
+}
+
 //
 // END LODASH TEMPLATES
 //
@@ -101,8 +114,11 @@ $(document).ready(function (){
     // ---- Setup web socket events
     socket.on(game._id, function(res){
       console.log("message recieved")
-      console.log(res)
+
       Materialize.toast(res.msg, 4000)
+
+      renderPlayer(res.data)
+
     })
 
     // ----- End Web Sockets
