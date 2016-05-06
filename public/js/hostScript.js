@@ -99,9 +99,10 @@ $(document).ready(function (){
     players = res.players
 
     // ---- Setup web socket events
-    socket.on(game._id, function(data){
+    socket.on(game._id, function(res){
       console.log("message recieved")
-      Materialize.toast(data.msg, 4000)
+      console.log(res)
+      Materialize.toast(res.msg, 4000)
     })
     // ----- End Web Sockets
 
