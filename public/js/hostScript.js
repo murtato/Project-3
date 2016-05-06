@@ -24,7 +24,7 @@ var _renderInstruction = _.template(`
 
 function renderInstructions(instructions) {
   instructions.forEach(instruction => {
-    var instructionHtml = _renderIstruction({instruction: instruction, game: game})
+    var instructionHtml = _renderInstruction({instruction: instruction, game: game})
     $("#task-list").append(instructionHtml)
   })
 }
@@ -40,10 +40,12 @@ function renderInstructions(instructions) {
 $(document).ready(function (){
   gameId = $("#game-id").html()
 
-  $.ajax({
-    method: "GET",
-    url: "/api/games/"+ gameId + "/json/"
-  }).then(function (res) {
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/api/games/"+ gameId + "/json/"
+  // })
+  $.get(window.location.pathname + "/json")
+  .then(function (res) {
     game = res.game
     user = res.user
     players = res.players

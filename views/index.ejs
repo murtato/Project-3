@@ -3,8 +3,9 @@
 <head>
   <$- include('./partials/head') $>
 </head>
-<body>
-  <$- include('./partials/navbar') $>
+<body >
+<$- include('./partials/navbar') $>
+<div class="center-align">
 
   <div class="container">
     <$ if (user && !user.currentGame) { $>
@@ -24,15 +25,20 @@
       </div>
 
     <$ } else if(user && user.currentGame) { $>
+
+    <div class="card">
+
       <div class="row">
         <a href="/api/games/<$= user.currentGame $>" class="waves-effect waves-light btn-large">Continue Game</a>
       </div>
+    <div class="divider"></div>
       <div class="row">
         <a href="/users/leavegame" class="waves-effect waves-light btn-large">Leave Game</a>
       </div>
     <$ } $>
+    </div>
   </div>
-
+</div>
 
 </body>
 </html>
