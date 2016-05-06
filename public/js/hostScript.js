@@ -15,7 +15,7 @@ var _renderInstruction = _.template(`
       <div class='card-content'>
         <span class='card-title'><%= instruction.task %></span>
         <% if (!game.start_time) { %>
-          <button id="<%= instruction._id %>" onclick='deleteHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>
+          <button id="<%= instruction._id %>" onclick='deleteInstructionHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>
         <% } %>
       </div>
     </div>
@@ -24,9 +24,39 @@ var _renderInstruction = _.template(`
 
 function renderInstructions(instructions) {
   instructions.forEach(instruction => {
-    var instructionHtml = _renderIstruction({instruction: instruction, game: game})
-    $("#task-list").append(instructionHtml)
+
   })
+}
+
+function renderInstruction(instruction) {
+  var instructionHtml = _renderInstruction({instruction: instruction, game: game})
+  $("#task-list").append(instructionHtml)
+}
+
+
+var _renderPhoto = _.template(`
+    <div id='1231231243124134' class='card'>
+      <div class='card-image waves-effect waves-block waves-light'>
+        <img class='activator' src='<%= photo.url %>'>
+      </div>
+      <div class='card-content'>
+        <button onclick='acceptPhotoHandler(this)' class='btn-large'><i class='material-icons'>thumb_up</i></button>
+        <button onclick='rejectPhotoHandler(this)' class='btn-large'><i class='material-icons'>thumb_down</i></button>
+      </div>
+    </div>
+  `)
+
+function renderPhotos(photos){
+  photos.forEach(photo => {
+    if (photo.result == null) {
+      renderPhoto(photo)
+    }
+  })
+}
+
+function renderPhoto(photo){
+  photoHtml = _renderPhoto({photo: photo})
+  $("#photos-container").append(photoHtml)
 }
 
 //
@@ -49,9 +79,8 @@ $(document).ready(function (){
     players = res.players
 
     renderInstructions(game.instructions)
-
+    renderPhotos(game.photos)
   })
-
 })
 
 function status(){
@@ -106,7 +135,7 @@ $(".add-button").on("click", function (e) {
             "<div class='card'>" +
               "<div class='card-content'>" +
                 "<span class='card-title'>" + ins.task + "</span>" +
-                "<button id=" + ins._id + " onclick='deleteHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>" +
+                "<button id=" + ins._id + " onclick='deleteInstructionHandler(this)' class='delete btn red right'><i class='material-icons'>delete</i></button>" +
               "</div>" +
             "</div>" +
           "</div>"
@@ -117,7 +146,7 @@ $(".add-button").on("click", function (e) {
   }
 })
 
-function deleteHandler(e) {
+function deleteInstructionHandler(e) {
   var instrId = e.id
 
   console.log("clicked delete button")
@@ -153,6 +182,10 @@ function startGame(id) {
     $(".footer123").hide();
 
   })
+}
+
+function acceptPhotoHandler(e) {
+
 }
 
 

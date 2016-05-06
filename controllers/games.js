@@ -139,11 +139,7 @@ function show(req, res, next) {
       res.json(err)
     } else {
       User.find({_id: {$in: game.player_ids}}, function(err, players) {
-        if (game.host_id == req.user.id){
-          res.json({game: game, user: req.user, players: players})
-        } else {
-          res.json({game: game, user: req.user, players: players})
-        }
+        res.json({game: game, user: req.user, players: players})
       })
     }
 

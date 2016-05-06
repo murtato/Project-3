@@ -78,5 +78,6 @@ function addPhoto(gameId) {
     }
   }).then(function (res){
     console.log(res)
+    $("#photo-url").val("")
   })
 }
