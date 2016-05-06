@@ -36,7 +36,6 @@ var renderUpcomingTask = _.template(`
         <div class="col s12 m8 push-m2">
           <div class="card">
             <div class="card-content">
-              <span class="card-title">Task</span>
               <p><%= task %></p>
             </div>
           </div>

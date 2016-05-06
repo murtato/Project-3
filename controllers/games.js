@@ -7,6 +7,7 @@ module.exports = {
   join:               join,
   index:              index,
   renderGame:         renderGame,
+  renderGameOver:     renderGameOver,
   show:               show,
   startGame:          startGame,
   addInstruction:     addInstruction,
@@ -129,6 +130,19 @@ function renderGame(req, res, next) {
   }
 }
 
+function renderGameOver(req, res, next) {
+  var id = req.params.id
+
+  Game.findById(id, function(err, game){
+    if(err) res.json(err)
+
+    User.find({_id: {$in: game.player_ids}}, function(err, players) {
+      res.render('game/gameOver', {game: game, user: req.user, players: players})
+    })
+
+  })
+}
+
 function show(req, res, next) {
   console.log("show controller worked")
   var id = req.params.id
@@ -141,7 +155,6 @@ function show(req, res, next) {
         res.json({game: game, user: req.user, players: players})
       })
     }
-
   })
 }
 
