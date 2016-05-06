@@ -104,6 +104,7 @@ $(document).ready(function (){
       console.log(res)
       Materialize.toast(res.msg, 4000)
     })
+
     // ----- End Web Sockets
 
     if (game.exp_time){
