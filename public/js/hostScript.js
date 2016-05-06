@@ -35,11 +35,13 @@ function renderInstruction(instruction) {
 
 
 var _renderPhoto = _.template(`
-    <div id='1231231243124134' class='card'>
+    <div id='<%= photo.instruction_index %>' class='card'>
       <div class='card-image waves-effect waves-block waves-light'>
         <img class='activator' src='<%= photo.url %>'>
       </div>
       <div class='card-content'>
+        <%= game.photos[0] %>
+
         <button onclick='acceptPhotoHandler(this)' class='btn-large'><i class='material-icons'>thumb_up</i></button>
         <button onclick='rejectPhotoHandler(this)' class='btn-large'><i class='material-icons'>thumb_down</i></button>
       </div>
@@ -203,6 +205,7 @@ function startGame(id) {
 }
 
 function acceptPhotoHandler(e) {
+  console.log("accepting photo")
 
 }
 
