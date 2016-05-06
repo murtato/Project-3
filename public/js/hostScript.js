@@ -24,7 +24,7 @@ var _renderInstruction = _.template(`
 
 function renderInstructions(instructions) {
   instructions.forEach(instruction => {
-    var instructionHtml = _renderIstruction({instruction: instruction, game: game})
+    var instructionHtml = _renderInstruction({instruction: instruction, game: game})
     $("#task-list").append(instructionHtml)
   })
 }
