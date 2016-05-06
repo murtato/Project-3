@@ -12,7 +12,7 @@ var expTime
 var renderCurrentTask = _.template(`
   <h5>Current Task</h5>
   <div class="row">
-      <div class="col s12">
+      <div class="col s12 m8 push-m2">
         <div class="card">
           <div class="card-image">
           </div>
@@ -33,7 +33,7 @@ var renderCurrentTask = _.template(`
   `)
 var renderUpcomingTask = _.template(`
     <div class="row">
-        <div class="col s12">
+        <div class="col s12 m8 push-m2">
           <div class="card">
             <div class="card-content">
               <span class="card-title">Task</span>
@@ -46,7 +46,7 @@ var renderUpcomingTask = _.template(`
   `)
 var renderAcceptedPhoto = _.template(`
   <div class="row">
-    <div class="col s12 m7">
+    <div class="col s12 m8 push-m2">
       <div class="card">
         <div class="card-image">
           <img src="<%= photo.url %>">
