@@ -48,4 +48,7 @@ input {
   padding-top: 50px;
   padding-bottom: 50px;
 }
-
+#photo{
+  width: 90%;
+  height: 60%;
+}
