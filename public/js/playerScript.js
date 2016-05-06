@@ -127,21 +127,20 @@ function addPhoto(gameId) {
 
   })
 }
-
 function addTimer(){
   $.get('/api/games/status/' + gameId)
   .done(function(data) {
-    console.log(data)
+    // console.log(data)
     console.log("success");
-    startTime = new Date(data.start_time)
+    // startTime = new Date(data.start_time)
     expTime = new Date(data.exp_time)
-    console.log(startTime)
-    console.log(expTime)
+    // console.log(startTime)
+    // console.log(expTime)
     setInterval(function(){
       var msLeft = expTime - new Date()
-      console.log(msLeft)
+      // console.log(msLeft)
       minLeft = parseInt(msLeft / 1000 / 60);
-      console.log(minLeft)
+      // console.log(minLeft)
       document.getElementById('clockmin').innerHTML = minLeft
       $( "#clockmin" ).append( document.createTextNode( " min" ) );
       secsLeft = parseInt(msLeft/1000 - minLeft*60);
