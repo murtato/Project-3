@@ -60,9 +60,8 @@ function renderPhoto(photo){
 }
 
 //
-// /LODASH TEMPLATES
+// LODASH TEMPLATES
 //
-
 
 
 
@@ -119,6 +118,7 @@ function endGame(){
  })
 }
 
+
 $(".add-button").on("click", function (e) {
   e.preventDefault
   var t = $("#add-input").val()
@@ -133,6 +133,7 @@ $(".add-button").on("click", function (e) {
         task: t
       }
     }).then(function(res){
+      game.instructions.push(res.instructions[res.instructions.length-1])
       list.empty();
       res.instructions.forEach(function(ins, index) {
         list.append(
@@ -147,6 +148,7 @@ $(".add-button").on("click", function (e) {
         )
       })
       $("#add-input").val("")
+
     })
   }
 })
@@ -165,6 +167,7 @@ function deleteInstructionHandler(e) {
 }
 
 function startGame(id) {
+  if (game.instructions.length)
   $.ajax({
     type: "PUT",
     url: "/api/games/"+id+"/startgame"
