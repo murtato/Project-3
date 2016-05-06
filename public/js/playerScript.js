@@ -5,6 +5,7 @@ var players
 var gameId
 var startTime
 var expTime
+var currentTask
 
 // LODASH TEMPLATES
 //
@@ -99,7 +100,7 @@ $(document).ready(function() {
         $(".incomplete-tasks").remove()
 
         var instructions = data.game.instructions
-        var currentTask = data.user.currentTask
+        currentTask++
 
         instructions.forEach(function(task, index) {
           if(currentTask == index) {
@@ -117,7 +118,7 @@ $(document).ready(function() {
         $(".incomplete-tasks").remove()
 
         var instructions = data.game.instructions
-        var currentTask = data.user.currentTask
+        currentTask++
 
         instructions.forEach(function(task, index) {
           if(currentTask == index) {

@@ -125,6 +125,12 @@ $(document).ready(function (){
         location.reload()
       }
 
+      if(res.event == "gameOver"){
+        var newUrl = window.location.pathname + "/gameOver"
+        window.location.replace(newUrl)
+      }
+
+
       if(res.event == "photoAdded"){
         console.log("photo added")
         renderPhoto(res.data)

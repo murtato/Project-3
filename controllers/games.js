@@ -204,6 +204,7 @@ function addPhoto(req, res, next){
       console.log("added photo to game")
       var updatedPhoto = updatedGame.photos[updatedGame.photos.length-1]
       res.json(updatedPhoto)
+
       io.emit(id, {event: "photoAdded", msg: req.user.firstName + " submitted a photo!", data: updatedPhoto})
     })
   })
@@ -249,7 +250,12 @@ function updatePhoto(req, res, next) {
         var msg = "Seriously, " + req.user.firstName + "? Try again, plebian."
       }
 
+      console.log("req.user.currentTask =", req.user.currentTask)
+      console.log("game.instructions.length =", game.instructions.length)
+
+
       io.emit(gameId, {event: event, msg: msg, data: photo})
+
     })
   })
 
@@ -300,7 +306,6 @@ function startGame (req, res, next) {
             res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
 
             io.emit(id, {event: "start", msg: "let's get started", data: {}})
-
         })
       })
     }
