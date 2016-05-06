@@ -67,7 +67,7 @@ $(document).ready(function() {
   var socket = io();
   console.log(socket);
 
-  // ----- End Web Sockets
+  // ----- End Web Socket Connection
 
 
 
@@ -78,6 +78,23 @@ $(document).ready(function() {
     user = data.user
     players = data.players
     gameId = data.game._id
+
+    // ---- Setup web socket events
+    socket.on(game._id, function(res){
+      console.log("message recieved")
+
+      Materialize.toast(res.msg, 4000)
+      if(res.event == "joined"){
+        renderPlayer(res.data)
+      }
+
+      if(res.event == "photoJudged"){
+        console.log("photo was judged")
+        console.log(res.data)
+      }
+
+    })
+    // ----- End Web Sockets
 
 
     // begin rendering page

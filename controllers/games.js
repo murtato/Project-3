@@ -222,6 +222,7 @@ function updatePhoto(req, res, next) {
     var photo = game.photos.id(photoId)
     photo.result = result
 
+    // only update user model if photo was true
     if (result == 'true') {
       console.log("adding 1")
       var playerId = photo.player_id
@@ -237,6 +238,16 @@ function updatePhoto(req, res, next) {
     game.save(function (err, updatedGame) {
       if (err) res.json(err)
       res.json(updatedGame)
+
+
+      // send web socket message
+      if (result == 'true'){
+        var msg = "Hey look at that! " + req.user.firstName + " gets to move on."
+      } else {
+        var msg = "Seriously, " + req.user.firstName + "? Try again, plebian."
+      }
+
+      io.emit(gameId, {event: "photoJudged", msg: msg, data: photo})
     })
   })
 
