@@ -298,6 +298,9 @@ function startGame (req, res, next) {
           {_id: {$in: updatedGame.player_ids}},
           {$set: {currentTask: 0}}, function (err) {
             res.json({msg: "startGame function worked", start_time: updatedGame.start_time.getTime(), exp_time: updatedGame.exp_time.getTime()})
+
+            io.emit(id, {event: "start", msg: "let's get started", data: {}})
+
         })
       })
     }

@@ -116,8 +116,13 @@ $(document).ready(function (){
       console.log("message recieved")
 
       Materialize.toast(res.msg, 4000)
+
       if(res.event == "joined"){
         renderPlayer(res.data)
+      }
+
+      if(res.event == "start"){
+        location.reload()
       }
 
       if(res.event == "photoAdded"){
