@@ -46,11 +46,11 @@ var renderAcceptedPhoto = _.template(`
     <div class="col s12 m7">
       <div class="card">
         <div class="card-image">
-          <img src="<%= game.photo %>">
+          <img src="<%= photo.url %>">
           <span class="card-title">Task</span>
         </div>
         <div class="card-content">
-          <p class="task-of-accepted-photo"><% task %></p>
+          <span class="card-title"><%= game.instructions[photo.instruction_index].task %></span>
         </div>
       </div>
     </div>
@@ -76,10 +76,24 @@ $(document).ready(function() {
       }else if(currentTask < index ){
         $("#upcoming-container").append(renderUpcomingTask(task))
       }
-      if(true){
-         $("#acccepted-picture").append(renderAcceptedPhoto(task))
-      }
     })
+    // set var photoFound = false
+    // loop through game.photos and set photoFound = true if photo.result  = true
+     data.game.photos.forEach(function(photo){
+    if(photo.result){
+       if(photo.player_id == user._id){
+        console.log("YES")
+
+     $("#acccepted-picture").append(renderAcceptedPhoto({photo:photo}))
+   }
+     }
+   })
+    // data.game.instructions.forEach(function(z){
+    // if(z.task){
+    //    // game.photos[0].player_id == user._id
+    //  $("#acccepted-picture").append(renderAcceptedPhoto({z:z}))
+    //   }
+    // })
   })
 })
 
