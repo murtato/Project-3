@@ -91,7 +91,8 @@ function join(req, res, next) {
               user.save(function (err, updatedUser) {
                 if (err) res.json(err)
                 res.redirect('/api/games/'+updatedGame._id)
-                io.emit("hello", {msg: "player joined"})
+                io.emit(gameId, {event: "joined", msg: "player joined"})
+                console.log("gameId =", gameId)
               })
             })
           })

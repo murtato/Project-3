@@ -80,16 +80,12 @@ function renderPhoto(photo){
 
 
 $(document).ready(function (){
-  // Web Sockets
+  // Web Socket Connection
   // Get our connection to the socket.io server
   var socket = io();
   console.log(socket);
 
-  socket.on("hello", function(data){
-    Materialize.toast(data.msg, 4000)
-  })
-
-  // ----- End Web Sockets
+  // ----- End Web Socket Connection
 
 
   //initialize gameId and begin rendering game
@@ -101,6 +97,13 @@ $(document).ready(function (){
     game = res.game
     user = res.user
     players = res.players
+
+    // ---- Setup web socket events
+    socket.on(game._id, function(data){
+      console.log("message recieved")
+      Materialize.toast(data.msg, 4000)
+    })
+    // ----- End Web Sockets
 
     if (game.exp_time){
       addTimer()
