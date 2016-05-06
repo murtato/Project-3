@@ -62,6 +62,15 @@ var renderAcceptedPhoto = _.template(`
 
 
 $(document).ready(function() {
+  // Web Sockets
+  // Get our connection to the socket.io server
+  var socket = io();
+  console.log(socket);
+
+  // ----- End Web Sockets
+
+
+
   addTimer()
   $.get(window.location.pathname + "/json")
   .then(data => {
@@ -73,7 +82,6 @@ $(document).ready(function() {
 
 
     // begin rendering page
-    console.log('ajax called')
     addTimer()
     var instructions = data.game.instructions
     var currentTask = data.user.currentTask
@@ -132,7 +140,6 @@ function addTimer(){
   $.get('/api/games/status/' + gameId)
   .done(function(data) {
     // console.log(data)
-    console.log("success");
     // startTime = new Date(data.start_time)
     expTime = new Date(data.exp_time)
     // console.log(startTime)
@@ -154,4 +161,13 @@ function addTimer(){
     }
   })
 }
+
+
+//
+// ----- Web Sockets
+//
+document.addEventListener("DOMContentLoaded", function() {
+
+
+})
 

@@ -73,21 +73,24 @@ function renderPhoto(photo){
 }
 
 //
-// LODASH TEMPLATES
+// END LODASH TEMPLATES
 //
 
 
 
 
 $(document).ready(function (){
+  // Web Sockets
+  // Get our connection to the socket.io server
+  var socket = io();
+  console.log(socket);
+  // ----- End Web Sockets
+
+
+  //initialize gameId and begin rendering game
   gameId = $("#game-id").html()
-  console.log(gameId)
   status()
 
-  // $.ajax({
-  //   method: "GET",
-  //   url: "/api/games/"+ gameId + "/json/"
-  // })
   $.get(window.location.pathname + "/json")
   .then(function (res) {
     game = res.game
@@ -111,8 +114,6 @@ $(document).ready(function (){
 function status(){
   $.get('/api/games/status/' + gameId)
   .done(function(data) {
-    console.log(data)
-    console.log("success");
 
     startTime = new Date(data.start_time)
     expTime = new Date(data.exp_time)
@@ -249,7 +250,5 @@ function updatePhotoInDb(photoId, result) {
     $("#"+photoId).parent().parent().parent().remove()
   })
 }
-
-
 
 
