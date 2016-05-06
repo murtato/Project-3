@@ -86,7 +86,7 @@ $(document).ready(function (){
   console.log(socket);
 
   socket.on("hello", function(data){
-    console.log(data)
+    Materialize.toast(data.msg, 4000)
   })
 
   // ----- End Web Sockets
