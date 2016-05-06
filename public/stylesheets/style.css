@@ -44,8 +44,16 @@ input {
     padding: 10px;
 }
 
-.card{
-  padding-top: 50px;
-  padding-bottom: 50px;
+.page-btn{
+  padding: 120px 0px 0px 0px;
+}
+.choice-btn{
+    padding-bottom: 55px;
+    padding-top: 55px;
+}
+
+#photo{
+  width: 90%;
+  height: 60%;
 }
 

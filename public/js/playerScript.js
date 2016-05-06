@@ -17,14 +17,14 @@ var renderCurrentTask = _.template(`
           <div class="card-image">
           </div>
           <div class="card-content">
-            <span class="card-title">Task</span>
-            <p class="current-task"><%= task %></p>
+            <p class="current-task card-title"><%= task %></p>
             <img id="photo"></img>
           </div>
-            <div class="row">
+            <div class="row incomplete-tasks">
               <div class="col s12">
                 <input id="photo-url" type="text" placeholder="Add a photo url">
-                <button id="submit-photo" class="btn"  onclick="addPhoto('<%= game._id %>')">Submit</button>
+                <button id="submit-photo" class="btn" onclick="addPhoto('<%= game._id %>')">Submit</button>
+                <div id="waiting-bar-goes-here"> </div>
               </div>
             </div>
         </div>
@@ -49,7 +49,7 @@ var renderAcceptedPhoto = _.template(`
       <div class="card">
         <div class="card-image">
           <img src="<%= photo.url %>">
-          <span class="card-title">Task</span>
+          <span class="card-title">Completed Task</span>
         </div>
         <div class="card-content">
           <span class="card-title"><%= game.instructions[photo.instruction_index].task %></span>
@@ -57,6 +57,28 @@ var renderAcceptedPhoto = _.template(`
       </div>
     </div>
   </div>
+  `)
+
+var renderUserPlayerWaiting = _.template(`
+    <div class="row">
+    <div class="col s12 m8 push-m2">
+      <div class="card">
+        <div class="card-image">
+          <img src="<%= url %>">
+          <span class="card-title"></span>
+        </div>
+        <div class="card-content">
+          <span class="card-title">
+            <div class="progress">
+              <div class="indeterminate"></div>
+            </div>
+            waiting for host...
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   `)
 
 
@@ -149,16 +171,36 @@ $(document).ready(function() {
     })
 
     // loop through game.photos and set photoFound = true if photo.result  = true
-    data.game.photos.forEach(function(photo){
-    if(photo.result){
-       if(photo.player_id == user._id){
-        console.log("YES")
 
-     $("#acccepted-picture").append(renderAcceptedPhoto({photo:photo}))
-   }
-     }
-   })
+    var waitingOnHost = false
+     data.game.photos.forEach(function(photo){
+      if(photo.result){
+         if(photo.player_id == user._id){
+            console.log("YES")
+            $("#acccepted-picture").append(renderAcceptedPhoto({photo:photo}))
+          }
+       }
+       else if (photo.result == null) {
+         // render waiting photof
+              $("#photo").attr('src', photo.url)
+              $("#submit-photo").remove()
+              $('#photo-url').remove()
+              $(".loading-gose-here").addClass('indeterminate')
+              $(".progress").show()
+              $(".waiting-for-host").show()
+              waitingOnHost = true
+
+            //    <div class="progress">
+            //   <div class="indeterminate"></div>
+            // </div>
+       }
+     })
+     if (!waitingOnHost) {
+      $(".waiting-for-host").hide(0)
+      $(".progress").hide(0)
+    }
   })
+
 })
 
 function addPhoto(gameId) {
@@ -176,16 +218,43 @@ function addPhoto(gameId) {
         currentTask: user.currentTask
       }
     }).then(function (res){
-      console.log("Photo was added")
-      $("#photo-url").val("")
 
-      $("#photo").attr("src", photoUrl)
-      $("#photo").attr("height", 300)
-      $("#photo").attr("width", 300)
+      console.log("addPhoto is working")
+      console.log("what is this?", res)
+      // $("#photo-url").val("")
+
+      // console.log('Response recieved')
+      // $("#photo").attr("src", photoUrl)
+      // $("#photo").attr("height", 300)
+      // $("#photo").attr("width", 300)
+
+        console.log("STAY")
+
+
+     // $("#current-container").append(renderUserPlayerWaiting({url:photoUrl}))
+     $("#photo").attr('src', photoUrl)
+
+
+
+
+     $("#submit-photo").remove()
+     $('#photo-url').remove()
+     $(".loading-gose-here").addClass('indeterminate')
+     $(".progress").show()
+     $(".waiting-for-host").show()
+     $("#waiting-bar-goes-here").append($("<div class='progress'><div class='loading-gose-here'></div></div>"
+))
+     $("#waiting-bar-goes-here").append($("<span class='waiting-for-host'>waiting for host...</span>"))
 
     })
   }
 }
+
+ //        console.log("null is not a string")
+ //         if(photo.player_id == user._id){
+ //          console.log("this user has this photo")
+
+
 function addTimer(){
   $.get('/api/games/status/' + gameId)
   .done(function(data) {
