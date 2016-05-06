@@ -79,7 +79,11 @@ $(document).ready(function (){
     players = res.players
 
     renderInstructions(game.instructions)
-    renderPhotos(game.photos)
+    if(game.start_time){
+      renderPhotos(game.photos)
+    }
+
+
   })
 })
 
