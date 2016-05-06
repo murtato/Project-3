@@ -19,6 +19,14 @@
       </div>
     <$ } else { $>
 
+    <div id="time-container" class="section">
+      <h5>Time Left</h5>
+      <div id="clock">
+        <$ if (game.start_time) { $>
+          <div class="con-space">
+            <div id="clockmin"></div> : <div id="clocksec"></div>
+          </div>
+        <$ } $>
       <div id="current-container" class="section" ></div>
       <div class="divider"></div>
 

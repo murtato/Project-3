@@ -61,16 +61,21 @@ var renderAcceptedPhoto = _.template(`
   `)
 
 
+
 $(document).ready(function() {
+  addTimer()
   $.get(window.location.pathname + "/json")
   .then(data => {
     // update global variables
     game = data.game
     user = data.user
     players = data.players
+    gameId = data.game._id
+
 
     // begin rendering page
     console.log('ajax called')
+    addTimer()
     var instructions = data.game.instructions
     var currentTask = data.user.currentTask
 
@@ -122,3 +127,31 @@ function addPhoto(gameId) {
 
   })
 }
+
+function addTimer(){
+  $.get('/api/games/status/' + gameId)
+  .done(function(data) {
+    console.log(data)
+    console.log("success");
+    startTime = new Date(data.start_time)
+    expTime = new Date(data.exp_time)
+    console.log(startTime)
+    console.log(expTime)
+    setInterval(function(){
+      var msLeft = expTime - new Date()
+      console.log(msLeft)
+      minLeft = parseInt(msLeft / 1000 / 60);
+      console.log(minLeft)
+      document.getElementById('clockmin').innerHTML = minLeft
+      $( "#clockmin" ).append( document.createTextNode( " min" ) );
+      secsLeft = parseInt(msLeft/1000 - minLeft*60);
+      document.getElementById('clocksec').innerHTML = secsLeft
+      $( "#clocksec" ).append( document.createTextNode( " sec" ) );
+
+    }, 1000);
+    if(startTime == expTime){
+        endGame()
+    }
+  })
+}
+
