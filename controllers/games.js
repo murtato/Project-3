@@ -1,6 +1,6 @@
 var Game = require("../models/game")
 var User = require("../models/user")
-var locus = require("locus")
+var io = require('../io')
 
 module.exports = {
   create:             create,
@@ -65,7 +65,7 @@ function create (req, res, next) {
 }
 
 function join(req, res, next) {
-  console.log("join function is working")
+  console.log("join function has started")
   if(!req.user){
     console.log("you have to be logged in")
     res.redirect('/auth/google')
@@ -91,6 +91,7 @@ function join(req, res, next) {
               user.save(function (err, updatedUser) {
                 if (err) res.json(err)
                 res.redirect('/api/games/'+updatedGame._id)
+                io.emit("hello", {msg: "player joined"})
               })
             })
           })

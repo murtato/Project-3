@@ -84,18 +84,27 @@ $(document).ready(function (){
   // Get our connection to the socket.io server
   var socket = io();
   console.log(socket);
+
+  socket.on("hello", function(data){
+    console.log(data)
+  })
+
   // ----- End Web Sockets
 
 
   //initialize gameId and begin rendering game
   gameId = $("#game-id").html()
-  status()
+
 
   $.get(window.location.pathname + "/json")
   .then(function (res) {
     game = res.game
     user = res.user
     players = res.players
+
+    if (game.exp_time){
+      addTimer()
+    }
 
     if (game.instructions.length > 0) {
       $("#startGame").removeClass('disabled')
@@ -111,7 +120,7 @@ $(document).ready(function (){
   })
 })
 
-function status(){
+function addTimer(){
   $.get('/api/games/status/' + gameId)
   .done(function(data) {
 

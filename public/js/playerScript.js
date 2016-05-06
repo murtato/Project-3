@@ -71,7 +71,6 @@ $(document).ready(function() {
 
 
 
-  addTimer()
   $.get(window.location.pathname + "/json")
   .then(data => {
     // update global variables
@@ -82,7 +81,9 @@ $(document).ready(function() {
 
 
     // begin rendering page
-    addTimer()
+    if (game.exp_time){
+      addTimer()
+    }
     var instructions = data.game.instructions
     var currentTask = data.user.currentTask
 
@@ -97,7 +98,7 @@ $(document).ready(function() {
     })
 
     // loop through game.photos and set photoFound = true if photo.result  = true
-     data.game.photos.forEach(function(photo){
+    data.game.photos.forEach(function(photo){
     if(photo.result){
        if(photo.player_id == user._id){
         console.log("YES")
@@ -162,12 +163,4 @@ function addTimer(){
   })
 }
 
-
-//
-// ----- Web Sockets
-//
-document.addEventListener("DOMContentLoaded", function() {
-
-
-})
 
