@@ -82,10 +82,12 @@ $(document).ready(function (){
   gameId = $("#game-id").html()
   console.log(gameId)
 
-  $.ajax({
-    method: "GET",
-    url: "/api/games/"+ gameId + "/json/"
-  }).then(function (res) {
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/api/games/"+ gameId + "/json/"
+  // })
+  $.get(window.location.pathname + "/json")
+  .then(function (res) {
     game = res.game
     user = res.user
     players = res.players
