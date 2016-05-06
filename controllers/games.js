@@ -1,5 +1,6 @@
 var Game = require("../models/game")
 var User = require("../models/user")
+var locus = require("locus")
 
 module.exports = {
   create:             create,
@@ -111,12 +112,9 @@ function renderGame(req, res, next) {
     console.log("you have to be logged in")
     res.redirect('/auth/google')
   } else {
-    console.log("renderGame controller triggered")
     var id = req.params.id
 
     Game.findById(id, function(err, game){
-      console.log("found game, req.params.id = ")
-      console.log(req.params.id)
 
       if(err) res.json(err);
 
@@ -124,7 +122,6 @@ function renderGame(req, res, next) {
         if (game.host_id == req.user.id){
           res.render('game/host', {game: game, user: req.user, players: players})
         } else {
-          console.log(req.user)
           res.render('game/player', {game: game, user: req.user, players: players})
         }
       })
@@ -208,6 +205,18 @@ function updatePhoto(req, res, next) {
 
     var photo = game.photos.id(photoId)
     photo.result = result
+
+    if (result == true) {
+      console.log("adding 1")
+      var playerId = photo.player_id
+      User.findById(playerId, function (err, user) {
+        if (err) res.json(err)
+        user.currentTask++
+        user.save(function (err, updatedUser) {
+          if (err) res.json(err)
+        })
+      })
+    }
 
     game.save(function (err, updatedGame) {
       if (err) res.json(err)
