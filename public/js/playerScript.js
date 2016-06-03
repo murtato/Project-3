@@ -130,15 +130,16 @@ $(document).ready(function() {
       if(res.event == "photoAccepted"){
         console.log("photo was accepted")
 
-        console.log(res.data.player_id)
-        if (res.data.player_id){
+        console.log("photo player id = ", res.data.player_id)
+        console.log("userId = ", user._id)
+        if (res.data.player_id == user._id){
           $("#acccepted-picture").append(renderAcceptedPhoto({photo:res.data}))
+          currentTask++
         }
 
         $(".incomplete-tasks").remove()
 
         var instructions = data.game.instructions
-        currentTask++
 
         instructions.forEach(function(task, index) {
           if(currentTask == index) {
