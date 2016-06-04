@@ -4,58 +4,93 @@
   <$- include('./partials/head') $>
 </head>
 <body >
-<$- include('./partials/navbar') $>
-<div class="center-align">
-  <div class="container page-btn">
-    <$ if (user && !user.currentGame) { $>
-
-      <div class="card choice-btn">
-        <div class="row">
-          <form id="create-game" action="/api/games" method="post">
-            <button type="submit" class="waves-effect waves-light btn-large">Create Game</button>
-          </form>
+  <$- include('./partials/navbar') $>
+  <div class="center-align">
+    <div class="container page-btn">
+      <div class="row">
+        <div class="gameRules">Welcome to SnapThis, a photo scavenger hunt! We've outlined the general rules for the host and for players below. Enjoy!</div>
+        <div class="col s12 m6">
+          <div class="center promo">
+            <h4 class="card-title">Host</h4>
+            <i class="large material-icons">present_to_all</i>
+            <h6 class="card-content">Create a game and share your secret code with your friends. They can join your game from anywhere in the world!</h6>
+          </div>
         </div>
-
-        <div class="row">
-          <form action="/api/games/join" method="post">
-            <label for="search">Join A Game</label>
-            <input id="join-game" type="text" name="gameId" placeholder="enter secret code">
-            <input type="submit" value="join" class="waves-effect waves-light btn-large">
-          </form>
+        <div class="col s12 m6">
+          <div class="center promo">
+            <h4 class="card-title">Host</h4>
+            <i class="large material-icons">playlist_add</i>
+            <h6 class="card-content">Easily add tasks to your scavenger hunt before you start the game. Add as many as you like, but beware, because that means you'll have to...</h6>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <div class="center promo">
+            <h4 class="card-title">Host</h4>
+            <i class="large material-icons">done_all</i>
+            <h6 class="card-content">Rate the pictures that players submit! Whenever you see a photo, you'll get to either approve or reject it for the game that you're hosting. Be as judgmental as you like!</h6>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <div class="center promo">
+            <h4 class="card-title">Player</h4>
+            <i class="large material-icons">person_pin</i>
+            <h6 class="card-content">Join a scavenger hunt using the secret code given to you by the host.</h6>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <div class="center promo">
+            <h4 class="card-title">Player</h4>
+            <i class="large material-icons">queue</i>
+            <h6 class="card-content">Read the task, snap a shot, and upload it via image url to your game.</h6>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <div class="center promo">
+            <h4 class="card-title">Player</h4>
+            <i class="large material-icons">loop</i>
+            <h6 class="card-content">If the host rejects your picture, try again. If the host accepts your picture, move onto the next task and repeat!</h6>
+          </div>
         </div>
       </div>
 
-    <$ } else if(user && user.currentGame) { $>
+      <$ if (user && !user.currentGame) { $>
 
-    <div class="row">
-      <div class="col s12 m8 push-m2">
         <div class="card choice-btn">
-          <a href="/api/games/<$= user.currentGame $>" class="waves-effect waves-light btn-large">Continue Game</a>
+          <div class="row">
+            <form id="create-game" action="/api/games" method="post">
+              <button type="submit" class="waves-effect waves-light btn-large">Create Game</button>
+            </form>
+          </div>
+
+          <div class="row">
+            <form action="/api/games/join" method="post">
+              <label for="search">Join A Game</label>
+              <input id="join-game" type="text" name="gameId" placeholder="enter secret code">
+              <input type="submit" value="join" class="waves-effect waves-light btn-large">
+            </form>
+          </div>
+        </div>
+
+      <$ } else if(user && user.currentGame) { $>
+
+      <div class="row">
+        <div class="col s12 m8 push-m2">
+          <div class="card choice-btn">
+            <a href="/api/games/<$= user.currentGame $>" class="waves-effect waves-light btn-large">Continue Game</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col s12 m8 push-m2">
-        <div class="card choice-btn">
-          <a href="/users/leavegame" class="waves-effect waves-light btn-large">Leave Game</a>
+      <div class="row">
+        <div class="col s12 m8 push-m2">
+          <div class="card choice-btn">
+            <a href="/users/leavegame" class="waves-effect waves-light btn-large">Leave Game</a>
+          </div>
         </div>
       </div>
+
+        <$ } $>
+
     </div>
-      <$ } $>
   </div>
-</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
