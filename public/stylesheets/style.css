@@ -3,6 +3,13 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.center {
+  position: relative;
+  height: auto;
+  border: 2px solid #FFFFFF;
+  background-color: #42a5f5;
+}
+
 #host-body-container {
   padding-bottom: 100px;
 }
