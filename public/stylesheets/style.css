@@ -4,10 +4,11 @@ body {
 }
 
 .center {
-  position: relative;
-  height: auto;
+  height: 250px;
   border: 2px solid #FFFFFF;
   background-color: #42a5f5;
+  margin: 5px;
+  padding: 5px 15px 3px 15px;
 }
 
 #host-body-container {
@@ -52,7 +53,7 @@ input {
 }
 
 .page-btn{
-  padding: 120px 0px 0px 0px;
+  padding: 20px 0px 0px 0px;
 }
 .choice-btn{
     padding-bottom: 55px;
