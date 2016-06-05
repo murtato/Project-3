@@ -17,7 +17,7 @@ body {
 }
 
 .about-us {
-
+  display: inline-grid;
 }
 
 #host-body-container {
