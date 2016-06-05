@@ -3,12 +3,21 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.gameRules {
+  height: 60px;
+  padding: 20px;
+}
+
 .center {
   height: 250px;
   border: 2px solid #FFFFFF;
   background-color: #42a5f5;
   margin: 5px;
   padding: 5px 15px 3px 15px;
+}
+
+.about-us {
+  display: inline-grid;
 }
 
 #host-body-container {
